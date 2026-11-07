@@ -1,243 +1,230 @@
 "use client";
 
-import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Flame, Users, Clock, ShieldCheck, Check } from "lucide-react";
-import gsap from "gsap";
+import { ArrowUpRight } from "lucide-react";
 
-interface PlatterTier {
+interface Portion {
   id: string;
   name: string;
-  tagline: string;
-  price: string;
-  serves: string;
-  weight: string;
+  persons: number;
   image: string;
-  spiceLevel: "Gentle" | "Aromatic" | "Bold" | "Fiery";
-  sides: string[];
+  description: string;
 }
 
-const PLATTER_TIERS: PlatterTier[] = [
+const PORTIONS: Portion[] = [
   {
-    id: "quarter",
-    name: "Quarter Mandi",
-    tagline: "The Solo Connoisseur",
-    price: "₹240",
-    serves: "1 Person",
-    weight: "350g tender cut + rice",
-    image: "/images/mandi/quarter-mandi.png",
-    spiceLevel: "Gentle",
-    sides: ["Simmering Maraq Broth", "House Garlic Toum", "Dakous Tomato Relish"],
+    id: "full",
+    name: "Full Mandi",
+    persons: 4,
+    image: "/images/dishes/normal mandi full with rice.png",
+    description: "Grand Majlis feast with 4 succulent cuts and generous rice.",
   },
   {
     id: "half",
-    name: "Half Mandi Platter",
-    tagline: "The Duo Experience",
-    price: "₹460",
-    serves: "2 Persons",
-    weight: "700g meat cut + double rice",
+    name: "Half Mandi",
+    persons: 2,
     image: "/images/dishes/Normal half withrice.png",
-    spiceLevel: "Aromatic",
-    sides: ["Unlimited Basmati Refill", "Double Toum & Dakous", "2x Maraq Broth bowls"],
+    description: "Ideal duo platter with 2 roasted cuts over fragrant basmati.",
   },
   {
-    id: "full",
-    name: "Grand Full Platter",
-    tagline: "The Royal Majlis Feast",
-    price: "₹880",
-    serves: "4-5 Persons",
-    weight: "1.4kg pit-roasted chicken/mutton",
+    id: "quarter",
+    name: "Quarter Mandi",
+    persons: 1,
+    image: "/images/mandi/quarter-mandi.png",
+    description: "Single personal feast with tender meat and seasoned rice.",
+  },
+];
+
+interface ChefPick {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+}
+
+const CHEF_PICKS: ChefPick[] = [
+  {
+    id: "chicken-mandi",
+    name: "Chicken Mandi",
     image: "/images/dishes/normal mandi full with rice.png",
-    spiceLevel: "Aromatic",
-    sides: ["Unlimited Basmati Refill", "Family Platter Garnish", "Full Sides Collection", "Caramelized dry fruits"],
+    description:
+      "A fragrant Arabian rice dish with tender spiced chicken and smoky flavors, served with traditional flair.",
   },
   {
-    id: "spicy",
-    name: "Special Spicy Mandi",
-    tagline: "Smoked Peri-Peri Ember Roast",
-    price: "₹490",
-    serves: "2-3 Persons",
-    weight: "800g marinated cuts",
+    id: "spicy-mandi",
+    name: "Spicy Mandi",
     image: "/images/dishes/Spicy half with rice.png",
-    spiceLevel: "Fiery",
-    sides: ["Charred Green Chilly Emulsion", "Cooling Mint Raita", "House Garlic Toum", "Hot Maraq"],
+    description:
+      "A bold twist on the classic, featuring tender meat, aromatic rice, and an extra kick of fiery Arabic spices.",
+  },
+  {
+    id: "mutton-mandi",
+    name: "Mutton Mandi",
+    image: "/images/dishes/mutton half with rice.png",
+    description:
+      "A flavorful rice dish with juicy, slow-cooked mutton and rich Arabic spices, served with an authentic smoky touch.",
+  },
+  {
+    id: "beef-mandi",
+    name: "Beef Mandi",
+    image: "/images/dishes/Beef half with rice.png",
+    description:
+      "A hearty Arabic rice dish with tender, spiced beef slow-cooked to perfection and served with smoky, fragrant rice.",
+  },
+  {
+    id: "alfaham-mandi",
+    name: "Alfaham Mandi",
+    image: "/images/dishes/alfaham with rice.png",
+    description:
+      "A delicious fusion of juicy grilled chicken and fragrant spiced rice, our Alfaham Mandi is a smoky, flavorful twist.",
+  },
+  {
+    id: "peri-peri-mandi",
+    name: "Peri Peri Mandi",
+    image: "/images/dishes/peri peri with rice.png",
+    description:
+      "A spicy fusion of Arabic rice and tender meat tossed in zesty Peri Peri sauce for a bold, fiery flavor.",
+  },
+  {
+    id: "honey-chilly-mandi",
+    name: "Honey Chilly Mandi",
+    image: "/images/dishes/Honey with rice.png",
+    description:
+      "Blends sweet and spicy flavors with tender meat, aromatic rice, and a drizzle of honey chili glaze for a bold twist.",
+  },
+  {
+    id: "green-chilly-mandi",
+    name: "Green Chilly Mandi",
+    image: "/images/dishes/Green chilie with rice.png",
+    description:
+      "A fiery blend of tender meat, aromatic rice, and bold green chilli spice, crafted for those who crave real flavor.",
   },
 ];
 
 export function InteractiveFeastSelector() {
-  const [selectedId, setSelectedId] = useState("full");
-  const platterRef = useRef<HTMLDivElement>(null);
-  const currentPlatter = PLATTER_TIERS.find((p) => p.id === selectedId) || PLATTER_TIERS[2];
-
-  const handleSelect = (tier: PlatterTier) => {
-    if (tier.id === selectedId) return;
-
-    // Smooth GSAP 3D switch transition
-    if (platterRef.current) {
-      gsap.timeline()
-        .to(platterRef.current, {
-          scale: 0.8,
-          opacity: 0.3,
-          rotateY: -45,
-          duration: 0.25,
-          ease: "power2.in",
-          onComplete: () => {
-            setSelectedId(tier.id);
-          },
-        })
-        .to(platterRef.current, {
-          scale: 1,
-          opacity: 1,
-          rotateY: 0,
-          duration: 0.45,
-          ease: "back.out(1.4)",
-        });
-    } else {
-      setSelectedId(tier.id);
-    }
-  };
-
   return (
-    <section className="py-24 lg:py-32 bg-[#0C0B0C] border-t border-white/[0.07] relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div
-        className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-10 blur-[130px]"
-        style={{
-          background: "radial-gradient(circle, #FCCB1C 0%, #FF8A00 50%, transparent 70%)",
-        }}
-      />
-
+    <section className="py-24 lg:py-32 bg-[#1B1A1C] border-t border-white/[0.08] relative overflow-hidden">
       <div className="site-container relative z-10">
-        {/* Header */}
-        <div className="max-w-2xl mb-14">
-          <span className="text-[11px] font-medium tracking-[0.25em] text-[#FCCB1C] uppercase block mb-2">
-            The Communal Scale
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-white mb-4">
-            Choose Your Portion
+        {/* ========================================================= */}
+        {/* PART 1: UNLIMITED RICE AVAILABLE (PORTIONS)               */}
+        {/* ========================================================= */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight mb-3">
+            Unlimited rice available
           </h2>
-          <p className="text-sm sm:text-base text-[#EDECEE]/70 font-light">
-            Every platter is cooked with aged long-grain basmati, Yemeni spices,
-            and served with slow-simmered maraq broth.
+          <p className="text-sm text-zinc-400 font-light">
+            Every dine-in platter includes complimentary Maraq broth, garlic Toum, and unlimited basmati rice refills.
           </p>
         </div>
 
-        {/* Tab Controls (Sleek Minimal Pills) */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full bg-white/[0.03] border border-white/10 w-fit mb-12">
-          {PLATTER_TIERS.map((tier) => {
-            const isActive = tier.id === selectedId;
-            return (
-              <button
-                key={tier.id}
-                onClick={() => handleSelect(tier)}
-                className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#FCCB1C] text-[#141314] shadow-lg shadow-[#FCCB1C]/20"
-                    : "text-white/70 hover:text-white hover:bg-white/[0.05]"
-                }`}
-              >
-                {tier.name}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Dynamic Display Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-white/[0.02] border border-white/[0.07] rounded-3xl p-8 sm:p-12 backdrop-blur-md">
-          {/* Left Column: 3D Interactive Platter Presentation */}
-          <div className="lg:col-span-6 flex items-center justify-center relative min-h-[340px] sm:min-h-[420px]" style={{ perspective: "1000px" }}>
-            {/* Ambient circular halo */}
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-white/[0.07] bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
-
+        {/* 3 Portion Cards (Sleek, Minimal, Golden Accent) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto mb-28">
+          {PORTIONS.map((portion) => (
             <div
-              ref={platterRef}
-              className="relative w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] drop-shadow-[0_30px_50px_rgba(0,0,0,0.9)] will-change-transform"
+              key={portion.id}
+              className="group relative rounded-3xl bg-gradient-to-b from-[#FCCB1C] to-[#E5B612] p-8 text-[#141314] flex flex-col items-center justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(252,203,28,0.25)] cursor-pointer"
             >
-              <Image
-                src={currentPlatter.image}
-                alt={currentPlatter.name}
-                fill
-                sizes="(max-width: 640px) 280px, 380px"
-                className="object-contain filter contrast-[1.05]"
-              />
-            </div>
-          </div>
-
-          {/* Right Column: Detailed Specifications */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <div>
-              <div className="flex items-baseline justify-between mb-2">
-                <span className="text-xs uppercase tracking-widest text-[#FCCB1C] font-mono">
-                  {currentPlatter.tagline}
-                </span>
-                <span className="text-3xl sm:text-4xl font-serif text-white font-normal">
-                  {currentPlatter.price}
-                </span>
+              {/* Platter preview */}
+              <div className="relative w-40 h-40 mb-4 drop-shadow-[0_15px_20px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-108">
+                <Image
+                  src={portion.image}
+                  alt={portion.name}
+                  fill
+                  sizes="160px"
+                  className="object-contain"
+                />
               </div>
 
-              <h3 className="text-3xl sm:text-4xl font-serif text-white mb-6">
-                {currentPlatter.name}
+              {/* Title */}
+              <h3 className="text-2xl font-serif font-bold text-[#141314] mb-3">
+                {portion.name}
               </h3>
 
-              {/* Quick Spec Pills */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-                  <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
-                    <Users className="w-3.5 h-3.5 text-[#FCCB1C]" />
-                    <span>Serving Scale</span>
-                  </div>
-                  <p className="text-sm font-medium text-white">{currentPlatter.serves}</p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-                  <div className="flex items-center gap-2 text-white/50 text-xs mb-1">
-                    <Flame className="w-3.5 h-3.5 text-[#FCCB1C]" />
-                    <span>Spice Profile</span>
-                  </div>
-                  <p className="text-sm font-medium text-white">{currentPlatter.spiceLevel}</p>
-                </div>
+              {/* Distinctive Ornate Arabian Badge */}
+              <div className="w-20 h-20 rounded-2xl bg-[#141314] text-[#FCCB1C] flex flex-col items-center justify-center border border-[#FCCB1C]/40 shadow-inner mb-3">
+                <span className="text-2xl font-serif font-bold leading-none">
+                  {portion.persons}
+                </span>
+                <span className="text-[9px] font-mono tracking-widest uppercase mt-0.5 text-zinc-300">
+                  {portion.persons === 1 ? "PERSON" : "PERSONS"}
+                </span>
               </div>
 
-              {/* Included Sides */}
-              <div className="mb-8">
-                <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">
-                  Included in this Platter:
+              <p className="text-xs text-[#141314]/80 text-center font-medium line-clamp-2">
+                {portion.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* ========================================================= */}
+        {/* PART 2: CHEF'S SPECIAL MANDI PICKS                        */}
+        {/* ========================================================= */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight mb-3">
+            Chef’s special mandi picks
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-xl mx-auto">
+            Explore our handpicked selection of premium Mandi dishes, crafted with signature spices, rich flavors, and authentic Arabian flair. Perfect for those craving something truly special.
+          </p>
+        </div>
+
+        {/* 8 Dishes Grid (2 Rows of 4 Cards) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 mb-16">
+          {CHEF_PICKS.map((dish) => (
+            <div
+              key={dish.id}
+              className="group flex flex-col justify-between rounded-2xl bg-[#151416] border border-white/[0.06] p-5 transition-all duration-300 hover:border-[#FCCB1C]/40 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.7)]"
+            >
+              <div>
+                {/* Authentic Top-Shot Platter with Rice */}
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-[#111012] flex items-center justify-center p-2.5">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(252,203,28,0.08)_0%,transparent_70%)] pointer-events-none" />
+                  <div className="relative w-full h-full drop-shadow-[0_15px_20px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-105">
+                    <Image
+                      src={dish.image}
+                      alt={dish.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-contain filter contrast-[1.05]"
+                    />
+                  </div>
+                </div>
+
+                {/* Dish Name in Gold Serif */}
+                <h3 className="text-xl font-serif text-[#FCCB1C] mb-2 group-hover:text-[#FFD84D] transition-colors">
+                  {dish.name}
+                </h3>
+
+                {/* Minimal Description */}
+                <p className="text-xs text-zinc-400 font-light leading-relaxed mb-4">
+                  {dish.description}
                 </p>
-                <div className="space-y-2">
-                  {currentPlatter.sides.map((side, sIdx) => (
-                    <div key={sIdx} className="flex items-center gap-2.5 text-xs sm:text-sm text-[#EDECEE]/80">
-                      <div className="w-4 h-4 rounded-full bg-[#FCCB1C]/20 flex items-center justify-center shrink-0">
-                        <Check className="w-2.5 h-2.5 text-[#FCCB1C]" />
-                      </div>
-                      <span>{side}</span>
-                    </div>
-                  ))}
-                </div>
+              </div>
+
+              {/* Card Bottom Meta */}
+              <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                <span>Quarter • Half • Full</span>
+                <span className="text-[#FCCB1C]/80">Unlimited Rice</span>
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Action CTA */}
-            <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-white/[0.07]">
-              <Link
-                href="/menu"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#FCCB1C] text-[#141314] font-medium text-xs tracking-wider uppercase transition-all duration-300 hover:bg-[#FFD84D] hover:shadow-[0_0_20px_rgba(252,203,28,0.3)]"
-              >
-                <span>View In Menu</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/branches"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-white/90 text-xs tracking-wider uppercase hover:border-white/30 transition-all duration-300"
-              >
-                <span>Order at Nearest Branch</span>
-              </Link>
-            </div>
-          </div>
+        {/* ========================================================= */}
+        {/* PART 3: MINIMAL OUTLINE BUTTON "VIEW OUR FULL MENU"       */}
+        {/* ========================================================= */}
+        <div className="flex justify-center">
+          <Link
+            href="/menu"
+            className="group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-white/20 bg-transparent text-white text-xs font-mono tracking-widest uppercase transition-all duration-300 hover:border-[#FCCB1C] hover:bg-[#FCCB1C] hover:text-[#141314] hover:shadow-[0_0_25px_rgba(252,203,28,0.3)]"
+          >
+            <span>View Our Full Menu</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-

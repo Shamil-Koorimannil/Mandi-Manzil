@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MinimalHero } from "@/components/home/MinimalHero";
 import { GsapAnatomyShowcase } from "@/components/home/GsapAnatomyShowcase";
 import { InteractiveFeastSelector } from "@/components/home/InteractiveFeastSelector";
-import { KineticDishShowcase } from "@/components/home/KineticDishShowcase";
 import { MinimalStatsGrid } from "@/components/home/MinimalStatsGrid";
 import { SleekLocations } from "@/components/home/SleekLocations";
 import { SleekFinalInvitation } from "@/components/home/SleekFinalInvitation";
@@ -19,25 +18,22 @@ export const metadata: Metadata = generatePageMetadata({
 export default function HomePage() {
   return (
     <>
-      {/* 01. Minimal Anti-Gravity Hero with 3D WebGL Atmosphere Canvas & Levitation Physics */}
+      {/* 01. Minimal Hero: Plain Grey Background, Slide-In Text & Dish, Dual Scroll Exit */}
       <MinimalHero />
 
       {/* 02. GSAP ScrollTrigger Pinned Anatomy Showcase (The Alchemy of the Pit) */}
       <GsapAnatomyShowcase />
 
-      {/* 03. 3D Perspective Portion & Feast Selector (Quarter, Half, Full, Spicy) */}
+      {/* 03. Unlimited Rice Portions & Chef's Special Mandi Picks (8-Dish Grid) */}
       <InteractiveFeastSelector />
 
-      {/* 04. Kinetic Horizontal Scroll Gallery with GSAP Velocity Skew Physics */}
-      <KineticDishShowcase />
-
-      {/* 05. Architectural Numbers & Heritage Grid with GSAP Counters */}
+      {/* 04. Architectural Numbers & Heritage Grid with GSAP Counters */}
       <MinimalStatsGrid />
 
-      {/* 06. Sleek Branch & Location Navigator */}
+      {/* 05. Sleek Branch & Location Navigator */}
       <SleekLocations />
 
-      {/* 07. Minimal Final Communal Invitation */}
+      {/* 06. Minimal Final Communal Invitation */}
       <SleekFinalInvitation />
     </>
   );
