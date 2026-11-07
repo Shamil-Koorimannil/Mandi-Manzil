@@ -8,8 +8,6 @@ interface Portion {
   id: string;
   name: string;
   persons: number;
-  image: string;
-  description: string;
 }
 
 const PORTIONS: Portion[] = [
@@ -17,22 +15,16 @@ const PORTIONS: Portion[] = [
     id: "full",
     name: "Full Mandi",
     persons: 4,
-    image: "/images/dishes/normal mandi full with rice.png",
-    description: "Grand Majlis feast with 4 succulent cuts and generous rice.",
   },
   {
     id: "half",
     name: "Half Mandi",
     persons: 2,
-    image: "/images/dishes/Normal half withrice.png",
-    description: "Ideal duo platter with 2 roasted cuts over fragrant basmati.",
   },
   {
     id: "quarter",
     name: "Quarter Mandi",
     persons: 1,
-    image: "/images/mandi/quarter-mandi.png",
-    description: "Single personal feast with tender meat and seasoned rice.",
   },
 ];
 
@@ -118,42 +110,27 @@ export function InteractiveFeastSelector() {
           </p>
         </div>
 
-        {/* 3 Portion Cards (Sleek, Minimal, Golden Accent) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto mb-28">
+        {/* 3 Portion Cards (Exact Reference Design without Images) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto mb-28">
           {PORTIONS.map((portion) => (
             <div
               key={portion.id}
-              className="group relative rounded-3xl bg-gradient-to-b from-[#FCCB1C] to-[#E5B612] p-8 text-[#141314] flex flex-col items-center justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(252,203,28,0.25)] cursor-pointer"
+              className="group relative rounded-2xl bg-[#FCCB1C] py-8 px-6 text-[#141314] flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(252,203,28,0.3)] cursor-pointer"
             >
-              {/* Platter preview */}
-              <div className="relative w-40 h-40 mb-4 drop-shadow-[0_15px_20px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-108">
-                <Image
-                  src={portion.image}
-                  alt={portion.name}
-                  fill
-                  sizes="160px"
-                  className="object-contain"
-                />
-              </div>
-
               {/* Title */}
-              <h3 className="text-2xl font-serif font-bold text-[#141314] mb-3">
+              <h3 className="text-2xl sm:text-[26px] font-serif font-bold text-[#141314] mb-5 tracking-tight">
                 {portion.name}
               </h3>
 
               {/* Distinctive Ornate Arabian Badge */}
-              <div className="w-20 h-20 rounded-2xl bg-[#141314] text-[#FCCB1C] flex flex-col items-center justify-center border border-[#FCCB1C]/40 shadow-inner mb-3">
-                <span className="text-2xl font-serif font-bold leading-none">
+              <div className="relative w-20 h-20 rounded-2xl bg-[#141314] text-[#FCCB1C] flex flex-col items-center justify-center border-2 border-[#141314] shadow-md transition-transform duration-300 group-hover:scale-105">
+                <span className="text-3xl font-serif font-bold leading-none">
                   {portion.persons}
                 </span>
-                <span className="text-[9px] font-mono tracking-widest uppercase mt-0.5 text-zinc-300">
+                <span className="text-[9px] font-mono tracking-widest uppercase mt-1 text-[#FCCB1C]/90 font-semibold">
                   {portion.persons === 1 ? "PERSON" : "PERSONS"}
                 </span>
               </div>
-
-              <p className="text-xs text-[#141314]/80 text-center font-medium line-clamp-2">
-                {portion.description}
-              </p>
             </div>
           ))}
         </div>
