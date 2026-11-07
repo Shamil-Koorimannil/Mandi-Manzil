@@ -49,103 +49,133 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#141314]/95 backdrop-blur-md border-b border-white/[0.08] shadow-sm py-3"
-          : "bg-[#141314]/80 backdrop-blur-sm border-b border-white/[0.05] py-4"
-      }`}
-    >
-      <div className="site-container flex items-center justify-between">
-        {/* Brand Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-yellow rounded-full"
-          aria-label="Mandi Manzil — Home"
-        >
-          <div className="relative w-32 h-9 sm:w-36 sm:h-10 transition-opacity duration-200 hover:opacity-90">
-            <Image
-              src="/brand/logo.png"
-              alt="Mandi Manzil"
-              fill
-              priority
-              sizes="(max-width: 640px) 128px, 144px"
-              className="object-contain object-left"
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
-          {MAIN_NAV.map((item) => {
-            const isActive =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-[11.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-200 relative py-1 focus-visible:text-brand-yellow ${
-                  isActive
-                    ? "text-brand-yellow font-semibold"
-                    : "text-zinc-300 hover:text-white"
-                }`}
-              >
-                <span>{item.label}</span>
-                {isActive && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-brand-yellow" />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Desktop Header Action */}
-        <div className="hidden lg:flex items-center gap-5">
-          <a
-            href={CONTACT_INFO.telLink}
-            className="flex items-center gap-2 text-[11px] tracking-wider uppercase font-medium text-zinc-400 hover:text-brand-yellow transition-colors duration-200"
-            title={`Customer Care: ${CONTACT_INFO.centralCustomerCare}`}
-          >
-            <Phone className="w-3.5 h-3.5 text-brand-yellow" strokeWidth={1.5} aria-hidden="true" />
-            <span className="font-mono text-xs">{CONTACT_INFO.centralCustomerCare}</span>
-          </a>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#141314]/95 backdrop-blur-md border-b border-white/[0.08] shadow-sm py-3"
+            : "bg-[#141314]/80 backdrop-blur-sm border-b border-white/[0.05] py-4"
+        }`}
+      >
+        <div className="site-container flex items-center justify-between">
+          {/* Brand Logo */}
           <Link
-            href="/branches"
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase px-4 py-2 rounded-full bg-brand-yellow text-[#141314] hover:bg-brand-yellow-hover transition-colors duration-200"
+            href="/"
+            className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-yellow rounded-full"
+            aria-label="Mandi Manzil — Home"
           >
-            <span>Branches</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <div className="relative w-32 h-9 sm:w-36 sm:h-10 transition-opacity duration-200 hover:opacity-90">
+              <Image
+                src="/brand/logo.png"
+                alt="Mandi Manzil"
+                fill
+                priority
+                sizes="(max-width: 640px) 128px, 144px"
+                className="object-contain object-left"
+              />
+            </div>
           </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
+            {MAIN_NAV.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-[11.5px] tracking-[0.14em] uppercase font-medium transition-colors duration-200 relative py-1 focus-visible:text-brand-yellow ${
+                    isActive
+                      ? "text-brand-yellow font-semibold"
+                      : "text-zinc-300 hover:text-white"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-brand-yellow" />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Desktop Header Action */}
+          <div className="hidden lg:flex items-center gap-5">
+            <a
+              href={CONTACT_INFO.telLink}
+              className="flex items-center gap-2 text-[11px] tracking-wider uppercase font-medium text-zinc-400 hover:text-brand-yellow transition-colors duration-200"
+              title={`Customer Care: ${CONTACT_INFO.centralCustomerCare}`}
+            >
+              <Phone className="w-3.5 h-3.5 text-brand-yellow" strokeWidth={1.5} aria-hidden="true" />
+              <span className="font-mono text-xs">{CONTACT_INFO.centralCustomerCare}</span>
+            </a>
+            <Link
+              href="/branches"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-widest uppercase px-4 py-2 rounded-full bg-brand-yellow text-[#141314] hover:bg-brand-yellow-hover transition-colors duration-200"
+            >
+              <span>Branches</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Mobile Menu Hamburger Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="lg:hidden p-2 text-zinc-300 hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-yellow rounded-full active:scale-95 transition-transform"
+            aria-expanded={mobileMenuOpen}
+            aria-label="Open navigation menu"
+          >
+            <Menu className="w-6 h-6 text-white" strokeWidth={1.75} />
+          </button>
         </div>
+      </header>
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-zinc-300 hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-yellow rounded-full"
-          aria-expanded={mobileMenuOpen}
-          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-        >
-          {mobileMenuOpen ? (
-            <X className="w-5 h-5 text-brand-yellow" strokeWidth={1.75} />
-          ) : (
-            <Menu className="w-5 h-5" strokeWidth={1.75} />
-          )}
-        </button>
-      </div>
-
-      {/* Accessible Mobile Drawer */}
+      {/* Full-Screen Mobile Drawer Overlay (100dvh, No Cutoffs) */}
       {mobileMenuOpen && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation Menu"
-          className="lg:hidden fixed inset-x-0 top-[61px] bottom-0 bg-[#141314] border-t border-white/10 px-6 py-8 flex flex-col justify-between overflow-y-auto z-40 animate-in fade-in duration-200"
+          data-lenis-prevent
+          className="lg:hidden fixed inset-0 z-[9999] h-[100dvh] w-full bg-[#141314] flex flex-col justify-between overflow-y-auto px-6 py-5 transition-all duration-300"
         >
-          <nav className="flex flex-col space-y-4" aria-label="Mobile Navigation">
+          {/* Top Row: Brand Logo & Distinct Close Button */}
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center"
+              aria-label="Mandi Manzil — Home"
+            >
+              <div className="relative w-32 h-9">
+                <Image
+                  src="/brand/logo.png"
+                  alt="Mandi Manzil"
+                  fill
+                  priority
+                  sizes="128px"
+                  className="object-contain object-left"
+                />
+              </div>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2.5 text-zinc-300 hover:text-white rounded-full bg-white/[0.06] border border-white/15 active:scale-95 transition-transform"
+              aria-label="Close navigation menu"
+            >
+              <X className="w-5 h-5 text-brand-yellow" strokeWidth={2} />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-col space-y-2 py-6 my-auto" aria-label="Mobile Navigation">
             {MAIN_NAV.map((item, idx) => {
               const isActive =
                 item.href === "/"
@@ -156,41 +186,50 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`py-3 border-b border-white/[0.06] text-base uppercase tracking-wider transition-colors flex items-center justify-between ${
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-3.5 px-4 rounded-2xl border transition-all flex items-center justify-between ${
                     isActive
-                      ? "text-brand-yellow font-bold"
-                      : "text-zinc-200 hover:text-white"
+                      ? "text-brand-yellow bg-white/[0.05] border-[#FCCB1C]/30 font-bold shadow-md"
+                      : "text-zinc-200 border-transparent hover:text-white hover:bg-white/[0.02]"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-mono text-zinc-500">
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs font-mono text-[#FCCB1C]/80 font-semibold">
                       0{idx + 1}
                     </span>
-                    <span className="font-philosopher text-xl">{item.label}</span>
+                    <span className="font-philosopher text-2xl tracking-wide">
+                      {item.label}
+                    </span>
                   </div>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />}
+                  {isActive ? (
+                    <span className="w-2 h-2 rounded-full bg-brand-yellow shadow-[0_0_10px_#FCCB1C]" />
+                  ) : (
+                    <ArrowUpRight className="w-4 h-4 text-zinc-500" />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="pt-8 border-t border-white/10 flex flex-col gap-3">
+          {/* Bottom Actions: Fast Contact & Branches Button */}
+          <div className="pt-4 pb-2 border-t border-white/10 flex flex-col gap-3">
             <a
               href={CONTACT_INFO.telLink}
-              className="flex items-center justify-center gap-2 py-3.5 text-xs uppercase tracking-wider font-mono text-zinc-300 border border-white/15 rounded-full"
+              className="flex items-center justify-center gap-2 py-3.5 text-xs uppercase tracking-wider font-mono text-zinc-200 bg-white/[0.04] border border-white/15 rounded-full active:bg-white/[0.08] transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-brand-yellow" strokeWidth={1.5} />
               <span>Customer Care: {CONTACT_INFO.centralCustomerCare}</span>
             </a>
             <Link
               href="/branches"
-              className="btn-primary w-full text-center py-3.5"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary w-full text-center py-3.5 text-xs tracking-wider uppercase font-bold"
             >
               Explore 16 Branches in Kerala
             </Link>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
