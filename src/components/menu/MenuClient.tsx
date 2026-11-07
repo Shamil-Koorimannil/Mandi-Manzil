@@ -117,16 +117,18 @@ export function MenuClient() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                     
                     {/* Visual Cut (5 cols) */}
-                    <div className="lg:col-span-5 relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#1B1A1B] group">
-                      <Image
-                        src={dish.image}
-                        alt={dish.name}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 40vw"
-                        className="object-cover object-center transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                      <div className="absolute top-3 left-3 bg-brand-yellow text-[#141314] text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+                    <div className="lg:col-span-5 relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#141314] flex items-center justify-center p-4 group">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(252,203,28,0.1)_0%,transparent_70%)] pointer-events-none" />
+                      <div className="relative w-full h-full drop-shadow-[0_20px_25px_rgba(0,0,0,0.85)]">
+                        <Image
+                          src={dish.image}
+                          alt={dish.name}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 40vw"
+                          className="object-contain filter contrast-[1.05] transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="absolute top-3 left-3 bg-brand-yellow text-[#141314] text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 shadow-md z-10">
                         <Flame className="w-3 h-3 text-[#141314]" />
                         <span>Chef&apos;s Signature</span>
                       </div>
@@ -190,31 +192,45 @@ export function MenuClient() {
                   .map((dish) => (
                     <article
                       key={dish.id}
-                      className="p-5 sm:p-6 rounded-2xl bg-[#181718] border border-white/[0.06] hover:border-brand-yellow/20 transition-colors flex flex-col justify-between"
+                      className="p-5 sm:p-6 rounded-2xl bg-[#181718] border border-white/[0.06] hover:border-brand-yellow/30 transition-all flex flex-col justify-between group"
                     >
-                      <div className="space-y-2.5">
-                        <div className="flex items-start justify-between gap-4">
-                          <h4 className="font-philosopher text-xl font-bold text-white">
-                            {dish.name}
-                          </h4>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 px-2.5 py-0.5 bg-white/[0.03] rounded-full shrink-0">
+                      <div>
+                        {/* Dish Product Image Showcase */}
+                        <div className="relative w-full h-44 sm:h-48 rounded-xl overflow-hidden mb-4 bg-[#141314] border border-white/[0.04] flex items-center justify-center p-3">
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(252,203,28,0.08)_0%,transparent_70%)] pointer-events-none" />
+                          <div className="relative w-full h-full drop-shadow-[0_15px_20px_rgba(0,0,0,0.85)]">
+                            <Image
+                              src={dish.image}
+                              alt={dish.name}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-contain filter contrast-[1.05] transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <span className="absolute top-2.5 right-2.5 text-[10px] font-mono uppercase tracking-widest text-zinc-300 px-2.5 py-0.5 bg-black/70 backdrop-blur-md rounded-full border border-white/10 z-10">
                             {dish.category}
                           </span>
                         </div>
 
-                        <p className="text-xs text-zinc-400 font-light leading-relaxed">
-                          {dish.description}
-                        </p>
+                        <div className="space-y-2">
+                          <h4 className="font-philosopher text-xl font-bold text-white group-hover:text-brand-yellow transition-colors">
+                            {dish.name}
+                          </h4>
 
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                          {dish.flavorNotes.map((note) => (
-                            <span
-                              key={note}
-                              className="text-[10px] text-zinc-400 bg-white/[0.03] px-2.5 py-0.5 rounded-full"
-                            >
-                              {note}
-                            </span>
-                          ))}
+                          <p className="text-xs text-zinc-400 font-light leading-relaxed">
+                            {dish.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {dish.flavorNotes.map((note) => (
+                              <span
+                                key={note}
+                                className="text-[10px] text-zinc-400 bg-white/[0.03] px-2.5 py-0.5 rounded-full"
+                              >
+                                {note}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
 

@@ -26,7 +26,7 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹790",
     tag: "Chef's Crown",
     rating: "4.9",
-    image: "/images/dishes/mutton-mandi.jpg",
+    image: "/images/dishes/mutton half with rice.png",
     description: "Young mutton slow-cooked 4 hours over charcoal until the bone pulls free effortlessly.",
   },
   {
@@ -36,7 +36,7 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹420",
     tag: "Best Seller",
     rating: "4.8",
-    image: "/images/dishes/chicken-mandi.jpg",
+    image: "/images/dishes/normal mandi full with rice.png",
     description: "Golden crispy skin outside, succulent steam-infused meat inside over aged saffron basmati.",
   },
   {
@@ -46,7 +46,7 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹450",
     tag: "Wood-Smoked",
     rating: "4.9",
-    image: "/images/dishes/alfaham-mandi.jpg",
+    image: "/images/dishes/alfaham with rice.png",
     description: "Arabian herbs marinade, charred over open embers, served atop warm fragrant spiced rice.",
   },
   {
@@ -56,7 +56,7 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹520",
     tag: "Special Reserve",
     rating: "4.8",
-    image: "/images/dishes/beef-mandi.jpg",
+    image: "/images/dishes/Beef half with rice.png",
     description: "Prime cuts slowly tenderized in fragrant pit vapors with cloves and toasted black pepper.",
   },
   {
@@ -66,7 +66,7 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹460",
     tag: "Spicy Favorite",
     rating: "4.7",
-    image: "/images/dishes/peri-peri-mandi.jpg",
+    image: "/images/dishes/peri peri with rice.png",
     description: "Crushed bird's eye chilies and garlic glaze paired with cooling house toum & maraq.",
   },
   {
@@ -76,8 +76,28 @@ const SHOWCASE_DISHES: Dish[] = [
     price: "₹480",
     tag: "Unique Blend",
     rating: "4.8",
-    image: "/images/dishes/honey-chilly-mandi.jpg",
+    image: "/images/dishes/Honey with rice.png",
     description: "Sweet wild bee honey glaze contrasted with pit-roasted heat and toasted dry fruits.",
+  },
+  {
+    id: "green-chilly-mandi",
+    name: "Green Chilly Mandi",
+    category: "Herbal Flame",
+    price: "₹470",
+    tag: "Fiery Classic",
+    rating: "4.8",
+    image: "/images/dishes/Green chilie with rice.png",
+    description: "Fresh crushed green chilies infused into steam-seared meat and long grain rice.",
+  },
+  {
+    id: "spicy-mandi",
+    name: "Special Spicy Mandi",
+    category: "Ember Roasted",
+    price: "₹490",
+    tag: "Hot Signature",
+    rating: "4.9",
+    image: "/images/dishes/Spicy half with rice.png",
+    description: "Bold Arabic spices and red masala glazed over tender charcoal roasted meat.",
   },
 ];
 
@@ -164,23 +184,28 @@ export function KineticDishShowcase() {
               key={dish.id}
               className="group relative w-[290px] sm:w-[350px] rounded-3xl bg-[#141314] border border-white/10 p-5 flex flex-col justify-between transition-all duration-500 hover:border-[#FCCB1C]/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
             >
-              {/* Image Frame with Zoom */}
-              <div className="relative w-full h-[240px] sm:h-[280px] rounded-2xl overflow-hidden mb-5 bg-[#1C1B1C]">
-                <Image
-                  src={dish.image}
-                  alt={dish.name}
-                  fill
-                  sizes="(max-width: 640px) 290px, 350px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-108"
-                />
+              {/* Image Frame with Floating 3D Product Platter */}
+              <div className="relative w-full h-[240px] sm:h-[280px] rounded-2xl overflow-hidden mb-5 bg-[#171617] border border-white/[0.04] flex items-center justify-center p-4">
+                {/* Subtle radial glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(252,203,28,0.12)_0%,transparent_70%)] pointer-events-none" />
+
+                <div className="relative w-full h-full drop-shadow-[0_20px_25px_rgba(0,0,0,0.85)] transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-2">
+                  <Image
+                    src={dish.image}
+                    alt={dish.name}
+                    fill
+                    sizes="(max-width: 640px) 290px, 350px"
+                    className="object-contain filter contrast-[1.05]"
+                  />
+                </div>
 
                 {/* Top Overlay Badge */}
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/60 border border-white/10 text-[11px] text-[#FCCB1C] font-mono">
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 border border-white/10 text-[11px] text-[#FCCB1C] font-mono z-10">
                   {dish.tag}
                 </div>
 
                 {/* Rating Badge */}
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full backdrop-blur-md bg-black/60 border border-white/10 text-[11px] text-white flex items-center gap-1">
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full backdrop-blur-md bg-black/70 border border-white/10 text-[11px] text-white flex items-center gap-1 z-10">
                   <Star className="w-3 h-3 fill-[#FCCB1C] text-[#FCCB1C]" />
                   <span>{dish.rating}</span>
                 </div>
