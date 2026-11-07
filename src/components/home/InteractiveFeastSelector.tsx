@@ -31,106 +31,141 @@ const PORTIONS: Portion[] = [
 interface ChefPick {
   id: string;
   name: string;
+  boldPrefix: string;
+  text: string;
   image: string;
-  description: string;
 }
 
 const CHEF_PICKS: ChefPick[] = [
   {
     id: "chicken-mandi",
-    name: "Chicken Mandi",
+    name: "Chicken mandi",
+    boldPrefix: "Chicken Mandi",
+    text: "is a fragrant Arabian rice dish with tender spiced chicken and smoky flavors, served with traditional flair.",
     image: "/images/dishes/normal mandi full with rice.png",
-    description:
-      "A fragrant Arabian rice dish with tender spiced chicken and smoky flavors, served with traditional flair.",
   },
   {
     id: "spicy-mandi",
-    name: "Spicy Mandi",
+    name: "Spicy mandi",
+    boldPrefix: "Spicy Mandi",
+    text: "is a bold twist on the classic, featuring tender meat, aromatic rice, and an extra kick of fiery Arabic spices.",
     image: "/images/dishes/Spicy half with rice.png",
-    description:
-      "A bold twist on the classic, featuring tender meat, aromatic rice, and an extra kick of fiery Arabic spices.",
   },
   {
     id: "mutton-mandi",
-    name: "Mutton Mandi",
+    name: "Mutton mandi",
+    boldPrefix: "A flavorful rice dish",
+    text: "with juicy, slow-cooked mutton and rich Arabic spices, served with an authentic smoky touch.",
     image: "/images/dishes/mutton half with rice.png",
-    description:
-      "A flavorful rice dish with juicy, slow-cooked mutton and rich Arabic spices, served with an authentic smoky touch.",
   },
   {
     id: "beef-mandi",
-    name: "Beef Mandi",
+    name: "Beef mandi",
+    boldPrefix: "Beef Mandi",
+    text: "is a hearty Arabic rice dish with tender, spiced beef slow-cooked to perfection and served with smoky, fragrant rice.",
     image: "/images/dishes/Beef half with rice.png",
-    description:
-      "A hearty Arabic rice dish with tender, spiced beef slow-cooked to perfection and served with smoky, fragrant rice.",
   },
   {
     id: "alfaham-mandi",
-    name: "Alfaham Mandi",
+    name: "Alfaham mandi",
+    boldPrefix: "A delicious fusion",
+    text: "of juicy grilled chicken and fragrant spiced rice, our Alfaham Mandi is a smoky, flavorful twist on the classic",
     image: "/images/dishes/alfaham with rice.png",
-    description:
-      "A delicious fusion of juicy grilled chicken and fragrant spiced rice, our Alfaham Mandi is a smoky, flavorful twist.",
   },
   {
     id: "peri-peri-mandi",
-    name: "Peri Peri Mandi",
+    name: "Peri peri mandi",
+    boldPrefix: "Peri Peri Mandi",
+    text: "is a spicy fusion of Arabic rice and tender meat tossed in zesty Peri Peri sauce for a bold, fiery flavor.",
     image: "/images/dishes/peri peri with rice.png",
-    description:
-      "A spicy fusion of Arabic rice and tender meat tossed in zesty Peri Peri sauce for a bold, fiery flavor.",
   },
   {
     id: "honey-chilly-mandi",
-    name: "Honey Chilly Mandi",
+    name: "Honey chilly mandi",
+    boldPrefix: "Blends sweet and spicy flavors",
+    text: "with tender meat, aromatic rice, and a drizzle of honey chili glaze for a bold fusion twist.",
     image: "/images/dishes/Honey with rice.png",
-    description:
-      "Blends sweet and spicy flavors with tender meat, aromatic rice, and a drizzle of honey chili glaze for a bold twist.",
   },
   {
     id: "green-chilly-mandi",
-    name: "Green Chilly Mandi",
+    name: "Green chilly mandi",
+    boldPrefix: "Green Chilly Mandi",
+    text: "a fiery blend of tender meat, aromatic rice, and bold green chilli spice, crafted for those who crave real flavor with a kick.",
     image: "/images/dishes/Green chilie with rice.png",
-    description:
-      "A fiery blend of tender meat, aromatic rice, and bold green chilli spice, crafted for those who crave real flavor.",
   },
 ];
 
+function ArabianOrnateBadge({ persons }: { persons: number }) {
+  return (
+    <div className="relative w-24 h-24 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 w-full h-full fill-[#141314] stroke-[#FCCB1C] stroke-[1.5]"
+      >
+        <path
+          d="M 50,2 
+             C 57,2 62,8 65,12 
+             C 72,9 79,12 83,17 
+             C 88,21 91,28 88,35 
+             C 92,38 98,43 98,50 
+             C 98,57 92,62 88,65 
+             C 91,72 88,79 83,83 
+             C 79,88 72,91 65,88 
+             C 62,92 57,98 50,98 
+             C 43,98 38,92 35,88 
+             C 28,91 21,88 17,83 
+             C 12,79 9,72 12,65 
+             C 8,62 2,57 2,50 
+             C 2,43 8,38 12,35 
+             C 9,28 12,21 17,17 
+             C 21,12 28,9 35,12 
+             C 38,8 43,2 50,2 Z"
+        />
+        <circle
+          cx="50"
+          cy="50"
+          r="38"
+          fill="none"
+          stroke="#FCCB1C"
+          strokeWidth="0.8"
+          opacity="0.5"
+        />
+      </svg>
+      <div className="relative z-10 flex flex-col items-center justify-center text-[#FCCB1C]">
+        <span className="text-3xl font-serif font-bold leading-none">{persons}</span>
+        <span className="text-[8px] font-mono tracking-widest uppercase mt-1 font-bold">
+          {persons === 1 ? "PERSON" : "PERSONS"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function InteractiveFeastSelector() {
   return (
-    <section className="py-24 lg:py-32 bg-[#1B1A1C] border-t border-white/[0.08] relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-[#2B2A2D] border-t border-white/[0.08] relative overflow-hidden">
       <div className="site-container relative z-10">
         {/* ========================================================= */}
         {/* PART 1: UNLIMITED RICE AVAILABLE (PORTIONS)               */}
         {/* ========================================================= */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight">
             Unlimited rice available
           </h2>
-          <p className="text-sm text-zinc-400 font-light">
-            Every dine-in platter includes complimentary Maraq broth, garlic Toum, and unlimited basmati rice refills.
-          </p>
         </div>
 
-        {/* 3 Portion Cards (Exact Reference Design without Images) */}
+        {/* 3 Portion Cards (Exact Reference Design Matching Image 1) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto mb-28">
           {PORTIONS.map((portion) => (
             <div
               key={portion.id}
               className="group relative rounded-2xl bg-[#FCCB1C] py-8 px-6 text-[#141314] flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(252,203,28,0.3)] cursor-pointer"
             >
-              {/* Title */}
               <h3 className="text-2xl sm:text-[26px] font-serif font-bold text-[#141314] mb-5 tracking-tight">
                 {portion.name}
               </h3>
 
-              {/* Distinctive Ornate Arabian Badge */}
-              <div className="relative w-20 h-20 rounded-2xl bg-[#141314] text-[#FCCB1C] flex flex-col items-center justify-center border-2 border-[#141314] shadow-md transition-transform duration-300 group-hover:scale-105">
-                <span className="text-3xl font-serif font-bold leading-none">
-                  {portion.persons}
-                </span>
-                <span className="text-[9px] font-mono tracking-widest uppercase mt-1 text-[#FCCB1C]/90 font-semibold">
-                  {portion.persons === 1 ? "PERSON" : "PERSONS"}
-                </span>
-              </div>
+              <ArabianOrnateBadge persons={portion.persons} />
             </div>
           ))}
         </div>
@@ -139,66 +174,57 @@ export function InteractiveFeastSelector() {
         {/* PART 2: CHEF'S SPECIAL MANDI PICKS                        */}
         {/* ========================================================= */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#FCCB1C] tracking-tight mb-4">
             Chef’s special mandi picks
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed max-w-xl mx-auto">
             Explore our handpicked selection of premium Mandi dishes, crafted with signature spices, rich flavors, and authentic Arabian flair. Perfect for those craving something truly special.
           </p>
         </div>
 
-        {/* 8 Dishes Grid (2 Rows of 4 Cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 mb-16">
+        {/* 8 Dishes Grid (2 Rows of 4 Cards Matching Image 2 & 3) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 mb-14">
           {CHEF_PICKS.map((dish) => (
             <div
               key={dish.id}
-              className="group flex flex-col justify-between rounded-2xl bg-[#151416] border border-white/[0.06] p-5 transition-all duration-300 hover:border-[#FCCB1C]/40 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.7)]"
+              className="group flex flex-col justify-start rounded-2xl bg-[#232225] border border-white/[0.06] p-5 transition-all duration-300 hover:border-[#FCCB1C]/40 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
             >
-              <div>
-                {/* Authentic Top-Shot Platter with Rice */}
-                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-[#111012] flex items-center justify-center p-2.5">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(252,203,28,0.08)_0%,transparent_70%)] pointer-events-none" />
-                  <div className="relative w-full h-full drop-shadow-[0_15px_20px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-105">
-                    <Image
-                      src={dish.image}
-                      alt={dish.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-contain filter contrast-[1.05]"
-                    />
-                  </div>
+              {/* Authentic Top-Shot Platter with Rice */}
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-[#1B1A1C] flex items-center justify-center p-2.5">
+                <div className="relative w-full h-full drop-shadow-[0_15px_20px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-105">
+                  <Image
+                    src={dish.image}
+                    alt={dish.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-contain filter contrast-[1.05]"
+                  />
                 </div>
-
-                {/* Dish Name in Gold Serif */}
-                <h3 className="text-xl font-serif text-[#FCCB1C] mb-2 group-hover:text-[#FFD84D] transition-colors">
-                  {dish.name}
-                </h3>
-
-                {/* Minimal Description */}
-                <p className="text-xs text-zinc-400 font-light leading-relaxed mb-4">
-                  {dish.description}
-                </p>
               </div>
 
-              {/* Card Bottom Meta */}
-              <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-zinc-500">
-                <span>Quarter • Half • Full</span>
-                <span className="text-[#FCCB1C]/80">Unlimited Rice</span>
-              </div>
+              {/* Dish Name in Gold Serif */}
+              <h3 className="text-xl font-serif text-[#FCCB1C] mb-2 group-hover:text-[#FFD84D] transition-colors">
+                {dish.name}
+              </h3>
+
+              {/* Minimal Description with Bold Keyword */}
+              <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                <strong className="font-semibold text-white/95">{dish.boldPrefix}</strong>{" "}
+                {dish.text}
+              </p>
             </div>
           ))}
         </div>
 
         {/* ========================================================= */}
-        {/* PART 3: MINIMAL OUTLINE BUTTON "VIEW OUR FULL MENU"       */}
+        {/* PART 3: MINIMAL RECTANGULAR BUTTON "VIEW OUR FULL MENU"   */}
         {/* ========================================================= */}
         <div className="flex justify-center">
           <Link
             href="/menu"
-            className="group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full border border-white/20 bg-transparent text-white text-xs font-mono tracking-widest uppercase transition-all duration-300 hover:border-[#FCCB1C] hover:bg-[#FCCB1C] hover:text-[#141314] hover:shadow-[0_0_25px_rgba(252,203,28,0.3)]"
+            className="inline-flex items-center justify-center px-8 py-3.5 border border-white/25 bg-[#232225] text-white text-xs font-mono tracking-widest uppercase transition-all duration-300 hover:border-[#FCCB1C] hover:bg-[#FCCB1C] hover:text-[#141314] hover:shadow-[0_0_25px_rgba(252,203,28,0.3)]"
           >
             <span>View Our Full Menu</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
       </div>

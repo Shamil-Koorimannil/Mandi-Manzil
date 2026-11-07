@@ -38,8 +38,8 @@ export default function AboutUsPage() {
           {/* Large Hero Photograph */}
           <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden border border-white/[0.1] shadow-2xl bg-[#1B1A1B] group">
             <Image
-              src="/images/hero-banquet.jpg"
-              alt="Communal Arabian Mandi banquet at Mandi Manzil"
+              src="/images/about-flagship-hq.jpg"
+              alt="Mandi Manzil Flagship - The Home of Arabian Mandi in Kerala"
               fill
               priority
               sizes="100vw"
@@ -49,10 +49,10 @@ export default function AboutUsPage() {
             <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-brand-yellow font-bold block">
-                  The Majlis Tradition
+                  The Flagship Experience
                 </span>
                 <p className="font-philosopher text-xl sm:text-2xl font-bold text-white mt-0.5">
-                  Shared platters, continuous refills, heartfelt hospitality.
+                  Authentic Arabian Mandi in Kerala since 2016.
                 </p>
               </div>
               <span className="text-xs font-mono text-zinc-400">Cheruvannur Flagship, Calicut</span>
