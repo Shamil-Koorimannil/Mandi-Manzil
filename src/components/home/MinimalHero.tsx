@@ -113,33 +113,47 @@ export function MinimalHero() {
     >
       <div className="site-container w-full relative z-10 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          {/* Left Side: "Mandi Manzil" & "The Feast Of Arabia" text coming from left */}
+          {/* Left Side: "Mandi Manzil" & reduced brand story text coming from left */}
           <div
             ref={textGroupRef}
             className="lg:col-span-7 flex flex-col items-start will-change-transform"
           >
-            {/* Tagline coming with text */}
-            <span className="text-xs sm:text-sm font-medium tracking-[0.28em] uppercase text-[#FCCB1C] mb-4">
-              The Feast Of Arabia
-            </span>
+            {/* Small words: Est & Category */}
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FCCB1C]" />
+              <span className="text-[11px] sm:text-xs font-mono font-medium tracking-[0.22em] uppercase text-[#FCCB1C]">
+                Kerala’s Original Arabic Mandi · Since 2016
+              </span>
+            </div>
 
             {/* Brand Title */}
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-serif font-normal text-white tracking-tight leading-[0.95] mb-6">
-              Mandi <br />
-              <span className="text-[#EDECEE]/90">Manzil</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-white tracking-tight leading-[0.98] mb-5">
+              Mandi Manzil
             </h1>
 
-            {/* Clean, minimal editorial subtitle */}
-            <p className="text-sm sm:text-base text-zinc-400 font-light max-w-lg leading-relaxed mb-8">
-              Authentic wood-fired Yemeni Mandi. Sealed in subterranean clay pits,
-              slow-cooked over glowing embers, and served in the generous tradition of Arabian hospitality.
+            {/* Reduced, concise brand story in small words */}
+            <p className="text-sm sm:text-base text-zinc-300 font-light max-w-lg leading-relaxed mb-6">
+              We don’t just serve food — we serve tradition, genuine hospitality, and the true flavours of the Middle East. Crafted to bring people together, every time.
             </p>
 
-            {/* Minimal Action link */}
-            <div className="flex items-center gap-6">
+            {/* Small highlight tags */}
+            <div className="flex flex-wrap items-center gap-2 mb-8">
+              <span className="px-3 py-1 rounded-full text-[11px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.08]">
+                Authentic Recipe
+              </span>
+              <span className="px-3 py-1 rounded-full text-[11px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.08]">
+                Dine-In & Delivery
+              </span>
+              <span className="px-3 py-1 rounded-full text-[11px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.08]">
+                16 Outlets in Kerala
+              </span>
+            </div>
+
+            {/* Minimal Action buttons */}
+            <div className="flex items-center gap-5">
               <Link
                 href="/menu"
-                className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#FCCB1C] text-[#141314] font-medium text-xs uppercase tracking-widest transition-all duration-300 hover:bg-[#FFD84D] hover:shadow-[0_0_25px_rgba(252,203,28,0.3)] hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-[#FCCB1C] text-[#141314] font-medium text-xs uppercase tracking-widest transition-all duration-300 hover:bg-[#FFD84D] hover:shadow-[0_0_25px_rgba(252,203,28,0.3)] hover:-translate-y-0.5"
               >
                 <span>View Menu</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -149,7 +163,7 @@ export function MinimalHero() {
                 href="/branches"
                 className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
               >
-                <span>16 Kerala Outlets</span>
+                <span>Find A Branch</span>
               </Link>
             </div>
           </div>
