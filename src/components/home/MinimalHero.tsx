@@ -131,9 +131,9 @@ export function MinimalHero() {
               Mandi Manzil
             </h1>
 
-            {/* Reduced, concise brand story in small words */}
-            <p className="text-sm sm:text-base text-zinc-300 font-light max-w-lg leading-relaxed mb-6">
-              We don’t just serve food — we serve tradition, genuine hospitality, and the true flavours of the Middle East. Crafted to bring people together, every time.
+            {/* Official Tagline */}
+            <p className="text-xl sm:text-2xl md:text-3xl font-serif text-[#FCCB1C] tracking-wide mb-6">
+              The Feast Of Arabia
             </p>
 
             {/* Small highlight tags */}
