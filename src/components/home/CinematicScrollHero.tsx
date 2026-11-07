@@ -195,22 +195,28 @@ export function CinematicScrollHero() {
         0.76
       );
 
-      // 4. Interactive Mouse Parallax (Silky multi-plane camera tilt displacement)
+      // 4. Interactive Mouse Parallax (Distinct speeds and displacements per layer)
       if (typeof window !== "undefined") {
-        const setTownX = gsap.quickTo(townMouseRef.current, "x", { duration: 1.1, ease: "power2.out" });
-        const setTownY = gsap.quickTo(townMouseRef.current, "y", { duration: 1.1, ease: "power2.out" });
+        // Distinct durations define how quickly each layer catches up to mouse movement:
+        // - Distant town has high inertia & slow, lazy speed (1.4s)
+        // - Restaurant has steady midground speed (1.05s)
+        // - Stone pathway has ground speed (0.8s)
+        // - Traveller has responsive fast speed (0.55s)
+        // - Foreground garden frame has snappy, immediate foreground speed (0.35s)
+        const setTownX = gsap.quickTo(townMouseRef.current, "x", { duration: 1.4, ease: "power2.out" });
+        const setTownY = gsap.quickTo(townMouseRef.current, "y", { duration: 1.4, ease: "power2.out" });
 
-        const setRestaurantX = gsap.quickTo(restaurantMouseRef.current, "x", { duration: 0.9, ease: "power2.out" });
-        const setRestaurantY = gsap.quickTo(restaurantMouseRef.current, "y", { duration: 0.9, ease: "power2.out" });
+        const setRestaurantX = gsap.quickTo(restaurantMouseRef.current, "x", { duration: 1.05, ease: "power2.out" });
+        const setRestaurantY = gsap.quickTo(restaurantMouseRef.current, "y", { duration: 1.05, ease: "power2.out" });
 
-        const setPathwayX = gsap.quickTo(pathwayMouseRef.current, "x", { duration: 0.85, ease: "power2.out" });
-        const setPathwayY = gsap.quickTo(pathwayMouseRef.current, "y", { duration: 0.85, ease: "power2.out" });
+        const setPathwayX = gsap.quickTo(pathwayMouseRef.current, "x", { duration: 0.8, ease: "power2.out" });
+        const setPathwayY = gsap.quickTo(pathwayMouseRef.current, "y", { duration: 0.8, ease: "power2.out" });
 
-        const setTravellerX = gsap.quickTo(travellerMouseRef.current, "x", { duration: 0.75, ease: "power2.out" });
-        const setTravellerY = gsap.quickTo(travellerMouseRef.current, "y", { duration: 0.75, ease: "power2.out" });
+        const setTravellerX = gsap.quickTo(travellerMouseRef.current, "x", { duration: 0.55, ease: "power2.out" });
+        const setTravellerY = gsap.quickTo(travellerMouseRef.current, "y", { duration: 0.55, ease: "power2.out" });
 
-        const setGardenX = gsap.quickTo(gardenMouseRef.current, "x", { duration: 0.95, ease: "power2.out" });
-        const setGardenY = gsap.quickTo(gardenMouseRef.current, "y", { duration: 0.95, ease: "power2.out" });
+        const setGardenX = gsap.quickTo(gardenMouseRef.current, "x", { duration: 0.35, ease: "power2.out" });
+        const setGardenY = gsap.quickTo(gardenMouseRef.current, "y", { duration: 0.35, ease: "power2.out" });
 
         const handleMouseMove = (e: MouseEvent) => {
           const rect = containerRef.current?.getBoundingClientRect();
@@ -220,21 +226,26 @@ export function CinematicScrollHero() {
           const normX = (e.clientX / window.innerWidth - 0.5) * 2;
           const normY = (e.clientY / window.innerHeight - 0.5) * 2;
 
-          // Subtle natural physical displacement (in pixels) for each depth layer
-          setTownX(normX * -12);
-          setTownY(normY * -8);
+          // Highly differentiated travel distances giving clearly noticeable different speeds:
+          // 1. Far background town (Slowest): 8px
+          setTownX(normX * -8);
+          setTownY(normY * -5);
 
-          setRestaurantX(normX * -18);
+          // 2. Sandstone restaurant (Midground): 20px
+          setRestaurantX(normX * -20);
           setRestaurantY(normY * -12);
 
-          setPathwayX(normX * -14);
-          setPathwayY(normY * -8);
+          // 3. Stone pathway (Ground): 32px
+          setPathwayX(normX * -32);
+          setPathwayY(normY * -18);
 
-          setTravellerX(normX * -24);
-          setTravellerY(normY * -15);
+          // 4. Arabian traveller (Foreground subject - Fast): 48px
+          setTravellerX(normX * -48);
+          setTravellerY(normY * -28);
 
-          setGardenX(normX * -34);
-          setGardenY(normY * -20);
+          // 5. Garden frame & palm tree (Closest foreground - Fastest): 70px
+          setGardenX(normX * -70);
+          setGardenY(normY * -40);
         };
 
         window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -370,7 +381,7 @@ export function CinematicScrollHero() {
           >
             <div
               ref={gardenMouseRef}
-              className="relative w-full h-full scale-[1.05] will-change-transform"
+              className="relative w-full h-full scale-[1.08] will-change-transform"
             >
               <Image
                 src="/images/scene-01/garden-frame.webp"
