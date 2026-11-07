@@ -14,7 +14,7 @@ export const MAIN_NAV: NavItem[] = [
 export const CONTACT_INFO = {
   brandName: "Mandi Manzil",
   taglines: [
-    "Timeless Tastes, Shared Traditions",
+    "The Feast Of Arabia",
     "Taste the Tradition. Feel the Fusion.",
   ],
   email: "info@mandimanzil.com",

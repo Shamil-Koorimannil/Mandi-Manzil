@@ -62,7 +62,7 @@ export const CORE_TEAM: TeamMember[] = [
 
 export const BRAND_STORY = {
   headline: "Taste the Tradition. Feel the Fusion.",
-  tagline: "Timeless Tastes, Shared Traditions",
+  tagline: "The Feast Of Arabia",
   establishedYear: 2016,
   legacyNote: "While earlier culinary roots trace back to 2006 in specialized regional catering, Mandi Manzil formally established its dedicated Arabic Mandi dining brand in Kerala in 2016.",
   leadParagraph: "Mandi Manzil was born out of a deep admiration for the rich, aromatic, and soulful dish known as Mandi — a traditional Arabic rice and meat preparation that originated in Yemen and spread across the Arabian Peninsula.",

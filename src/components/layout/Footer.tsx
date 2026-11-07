@@ -124,8 +124,8 @@ export function Footer() {
           <p>
             &copy; {currentYear} Mandi Manzil. Established 2016. All rights reserved.
           </p>
-          <p className="font-philosopher italic text-zinc-400 text-sm">
-            Timeless Tastes, Shared Traditions
+          <p className="font-mono text-[11px] uppercase tracking-widest text-[#FCCB1C]">
+            The Feast Of Arabia
           </p>
         </div>
       </div>
