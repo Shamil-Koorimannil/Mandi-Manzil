@@ -24,7 +24,7 @@ export function SleekFinalInvitation() {
         </div>
 
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-normal text-white mb-6 leading-tight">
-          Gather Around the Hearth.
+          The Feast Of Arabia
         </h2>
 
         <p className="text-base sm:text-lg text-white/60 font-light max-w-2xl mx-auto leading-relaxed mb-10">
