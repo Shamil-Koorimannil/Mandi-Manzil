@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MinimalHero } from "@/components/home/MinimalHero";
 import { GsapAnatomyShowcase } from "@/components/home/GsapAnatomyShowcase";
 import { InteractiveFeastSelector } from "@/components/home/InteractiveFeastSelector";
-import { MinimalStatsGrid } from "@/components/home/MinimalStatsGrid";
 import { SleekLocations } from "@/components/home/SleekLocations";
 import { SleekFinalInvitation } from "@/components/home/SleekFinalInvitation";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -27,13 +26,10 @@ export default function HomePage() {
       {/* 03. Unlimited Rice Portions & Chef's Special Mandi Picks (8-Dish Grid) */}
       <InteractiveFeastSelector />
 
-      {/* 04. Architectural Numbers & Heritage Grid with GSAP Counters */}
-      <MinimalStatsGrid />
-
-      {/* 05. Sleek Branch & Location Navigator */}
+      {/* 04. Sleek Branch & Location Navigator */}
       <SleekLocations />
 
-      {/* 06. Minimal Final Communal Invitation */}
+      {/* 05. Minimal Final Communal Invitation */}
       <SleekFinalInvitation />
     </>
   );
