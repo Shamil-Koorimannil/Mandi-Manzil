@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/menu",
     "/about-us",
     "/branches",
-    "/gallery",
     "/contact-us",
   ];
 

@@ -395,10 +395,10 @@ export function AntiGravityHero() {
                 </div>
 
                 <Link
-                  href="/gallery"
+                  href="/about-us"
                   className="text-[11px] font-mono uppercase tracking-wider text-amber-700 hover:text-amber-800 font-bold whitespace-nowrap self-end sm:self-center"
                 >
-                  See Reviews &rarr;
+                  Our Story &rarr;
                 </Link>
               </div>
             </div>

@@ -8,7 +8,6 @@ export const MAIN_NAV: NavItem[] = [
   { label: "Menu", href: "/menu" },
   { label: "About Us", href: "/about-us" },
   { label: "Branches", href: "/branches" },
-  { label: "Gallery", href: "/gallery" },
   { label: "Contact Us", href: "/contact-us" },
 ];
 
