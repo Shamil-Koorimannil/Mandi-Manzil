@@ -32,57 +32,57 @@ export function CinematicScrollHero() {
 
     const ctx = gsap.context(() => {
       // 1. Initial entrance timeline on load
-      const entranceTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const entranceTl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
       entranceTl.fromTo(
         townRef.current,
-        { scale: 1.08, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.6 }
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2 }
       );
 
       entranceTl.fromTo(
         restaurantRef.current,
-        { y: 30, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power2.out" },
-        "-=1.2"
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2 },
+        "-=0.9"
       );
 
       entranceTl.fromTo(
         pathwayRef.current,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.4 },
-        "-=1.1"
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2 },
+        "-=0.9"
       );
 
       entranceTl.fromTo(
         travellerRef.current,
-        { x: -50, opacity: 0, scale: 0.92 },
-        { x: 0, opacity: 1, scale: 1, duration: 1.5, ease: "back.out(1.2)" },
-        "-=1.0"
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2 },
+        "-=0.9"
       );
 
       entranceTl.fromTo(
         gardenRef.current,
-        { scale: 1.05, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.4 },
-        "-=1.1"
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2 },
+        "-=0.9"
       );
 
       entranceTl.fromTo(
         initialTextRef.current,
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2 },
-        "-=0.8"
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.0 },
+        "-=0.7"
       );
 
       entranceTl.fromTo(
         scrollIndicatorRef.current,
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.4"
+        "-=0.5"
       );
 
-      // 2. Idle subtle animations: palm lantern glow pulse & breeze sway
+      // 2. Idle subtle animations: palm lantern glow pulse
       gsap.to(lanternGlowRef.current, {
         scale: 1.15,
         opacity: 0.85,
@@ -93,11 +93,13 @@ export function CinematicScrollHero() {
       });
 
       // 3. Multi-layer pinned scroll timeline (The Scroll Story)
+      // NOTE: Per requirements, the man (travellerRef) and the building (restaurantRef) DO NOT MOVE with scroll.
+      // Other layers (townRef, gardenRef, pathwayRef, and narrative texts) move with scroll to create parallax depth.
       const storyTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=2400",
+          end: "+=2000",
           pin: pinTargetRef.current,
           scrub: 1.2,
           anticipatePin: 1,
@@ -107,63 +109,34 @@ export function CinematicScrollHero() {
         },
       });
 
-      // LAYER 1: Background Arabian Town (Slowest parallax, subtle zoom)
+      // LAYER 1: Background Arabian Town (Slow background parallax)
       storyTl.to(
         townRef.current,
         {
-          y: -40,
-          scale: 1.04,
+          y: -60,
+          scale: 1.05,
           ease: "none",
         },
         0
       );
 
-      // LAYER 2: Restaurant Building (Midground depth + light warm pulse)
-      storyTl.to(
-        restaurantRef.current,
-        {
-          y: -20,
-          scale: 1.03,
-          ease: "none",
-        },
-        0
-      );
-
-      // LAYER 3: Stone Pathway (Ground anchor)
+      // LAYER 3: Stone Pathway (Subtle ground parallax shift)
       storyTl.to(
         pathwayRef.current,
         {
-          y: -10,
+          y: -18,
+          scale: 1.01,
           ease: "none",
         },
         0
       );
 
-      // LAYER 4: Arabian Traveller (Journey from left foreground to restaurant steps)
-      // Moving along the curved pathway: X moves right, Y moves up slightly, Scale reduces for perspective
-      storyTl.to(
-        travellerRef.current,
-        {
-          x: () => {
-            const w = window.innerWidth;
-            return w < 768 ? w * 0.42 : w * 0.44;
-          },
-          y: () => {
-            const h = window.innerHeight;
-            return h < 700 ? -30 : -55;
-          },
-          scale: 0.52,
-          ease: "power1.inOut",
-        },
-        0
-      );
-
-      // LAYER 5: Foreground Garden Frame (Fastest foreground parallax for extreme depth)
+      // LAYER 5: Foreground Garden Frame (Fastest foreground parallax creating rich depth)
       storyTl.to(
         gardenRef.current,
         {
-          y: 35,
-          scale: 1.03,
+          y: 55,
+          scale: 1.04,
           ease: "none",
         },
         0
@@ -457,3 +430,4 @@ export function CinematicScrollHero() {
     </section>
   );
 }
+
