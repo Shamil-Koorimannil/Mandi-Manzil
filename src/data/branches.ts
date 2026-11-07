@@ -23,7 +23,7 @@ export const BRANCHES: Branch[] = [
     phone: "06235 022 055",
     phoneLink: "tel:+916235022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Cheruvannur+Calicut",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/calicut.jpg",
   },
   {
     id: "kaipamangalam",
@@ -59,7 +59,7 @@ export const BRANCHES: Branch[] = [
     phone: "09562 022 055",
     phoneLink: "tel:+919562022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Perambra+Thrissur",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/perambra.jpg",
   },
   {
     id: "kazhakootam",
@@ -95,7 +95,7 @@ export const BRANCHES: Branch[] = [
     phone: "08589 022 055",
     phoneLink: "tel:+918589022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Ulloor+Trivandrum",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/ulloor.jpg",
   },
   {
     id: "karyavattom",
@@ -107,7 +107,7 @@ export const BRANCHES: Branch[] = [
     phone: "09207 022 055",
     phoneLink: "tel:+919207022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Karyavattom",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/karyavattom.jpg",
   },
   {
     id: "kadappakada",
@@ -142,7 +142,7 @@ export const BRANCHES: Branch[] = [
     phone: "07736 022 055",
     phoneLink: "tel:+917736022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Karunagappally",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/karunagappally.png",
   },
   {
     id: "oachira",
@@ -154,7 +154,7 @@ export const BRANCHES: Branch[] = [
     phone: "08157 022 055",
     phoneLink: "tel:+918157022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Oachira",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/oachira.png",
   },
   {
     id: "pattom",
@@ -166,7 +166,7 @@ export const BRANCHES: Branch[] = [
     phone: "09074 022 055",
     phoneLink: "tel:+919074022055",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Pattom+Plammoodu+Trivandrum",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/pattom.png",
   },
   {
     id: "killipalam",
@@ -177,7 +177,7 @@ export const BRANCHES: Branch[] = [
     phone: "08113 022 066",
     phoneLink: "tel:+918113022066",
     googleMapsUrl: "https://maps.google.com/?q=Mandi+Manzil+Killipalam+PRS+Hospital",
-    image: "/images/shop-front.jpg",
+    image: "/images/branches/killipalam.png",
   },
   {
     id: "parippally",
@@ -185,6 +185,7 @@ export const BRANCHES: Branch[] = [
     city: "Parippally",
     district: "Kollam",
     address: "Parippally, Kollam, Kerala",
+    image: "/images/branches/parippally.png",
     isComingSoon: true,
   },
   {
@@ -193,6 +194,7 @@ export const BRANCHES: Branch[] = [
     city: "Bharanikkavu",
     district: "Kollam / Alappuzha",
     address: "Bharanikkavu, Kerala",
+    image: "/images/branches/bharanikkavu.png",
     isComingSoon: true,
   },
 ];

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Search, MapPin, Phone, Navigation, X } from "lucide-react";
 import { BRANCHES, Branch } from "@/data/branches";
 import { CONTACT_INFO } from "@/data/navigation";
@@ -131,6 +132,20 @@ export function BranchFinderClient() {
                     }`}
                   >
                     <div>
+                      {/* Branch Shop Building Image */}
+                      {branch.image && (
+                        <div className="relative w-full h-44 sm:h-48 rounded-xl overflow-hidden mb-4 bg-[#141314] border border-white/[0.06] group/img">
+                          <Image
+                            src={branch.image}
+                            alt={`Mandi Manzil ${branch.name}`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover/img:scale-105 filter brightness-95 group-hover/img:brightness-100"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#181718]/80 via-transparent to-transparent pointer-events-none" />
+                        </div>
+                      )}
+
                       {/* Top Badges */}
                       <div className="flex items-center justify-between mb-2.5 text-[10px] font-mono uppercase tracking-wider">
                         <span className="text-brand-yellow font-bold">
