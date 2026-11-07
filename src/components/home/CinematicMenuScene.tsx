@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MobileCinematicMenuScene } from "./MobileCinematicMenuScene";
 
 export function CinematicMenuScene() {
   const containerRef = useRef<HTMLElement>(null);
@@ -21,6 +22,9 @@ export function CinematicMenuScene() {
   const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only initialize desktop timeline on desktop/tablet viewports (>= 768px)
+    if (typeof window === "undefined" || window.innerWidth < 768) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
@@ -133,11 +137,19 @@ export function CinematicMenuScene() {
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full bg-[#0F0D0E] text-white selection:bg-[#FCCB1C] selection:text-[#141314]"
-      aria-label="Scene 02: The Mandi Menu"
-    >
+    <>
+      {/* 1. Dedicated Mobile Scene 02 (Phones < 768px with portrait assets & device tilt) */}
+      <div className="block md:hidden">
+        <MobileCinematicMenuScene />
+      </div>
+
+      {/* 2. Master Desktop Scene 02 (Desktops & Tablets >= 768px, 100% preserved) */}
+      <div className="hidden md:block">
+        <section
+          ref={containerRef}
+          className="relative w-full bg-[#0F0D0E] text-white selection:bg-[#FCCB1C] selection:text-[#141314]"
+          aria-label="Scene 02: The Mandi Menu"
+        >
       {/* Pinned Stage Container (Locks 100svh during scroll) */}
       <div
         ref={pinTargetRef}
@@ -225,5 +237,7 @@ export function CinematicMenuScene() {
         </div>
       </div>
     </section>
-  );
+  </div>
+</>
+);
 }

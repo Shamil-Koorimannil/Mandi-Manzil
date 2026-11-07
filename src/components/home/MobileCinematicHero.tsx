@@ -463,3 +463,4 @@ export function MobileCinematicHero() {
     </section>
   );
 }
+
