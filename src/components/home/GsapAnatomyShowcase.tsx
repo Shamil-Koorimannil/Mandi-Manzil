@@ -18,44 +18,44 @@ interface Step {
 
 const STEPS: Step[] = [
   {
-    id: "pit",
+    id: "journey",
     number: "01",
-    title: "Subterranean Clay Oven",
-    tagline: "Slow Wood-Fired Heat",
+    title: "Our Authentic Journey",
+    tagline: "Established In 2016",
     description:
-      "A deep earthen pit built inside the floor, fired with dense acacia charcoal embers until radiant heat saturates the clay walls.",
+      "Established in 2016, our journey began with a passion for bringing the true flavors of the Middle East to Kerala. Over the years, we’ve grown to become one of the most loved names for Arabic Mandi in the region.",
     icon: Flame,
-    details: ["Sealed with damp jute sack & clay", "Zero open direct flame on rice", "Continuous radiant convection"],
+    details: ["Established in 2016", "True Middle East Flavors", "Kerala's Original Destination"],
   },
   {
-    id: "suspension",
+    id: "hospitality",
     number: "02",
-    title: "Suspended Meat Dripping",
-    tagline: "Natural Richness Infusion",
+    title: "Tradition & Hospitality",
+    tagline: "More Than Food",
     description:
-      "Selected cuts of young mutton or chicken are suspended on stainless tiers directly above the rice pot. As it cooks, seasoned fats drop continuously into the grains below.",
+      "At Mandi Manzil, we don’t just serve food – we serve tradition, hospitality, and an unforgettable culinary experience. A place where quality, authenticity, and customer satisfaction come first.",
     icon: Sparkles,
-    details: ["Self-basting fat cascade", "Fall-off-the-bone tenderness", "Zero heavy cooking oils"],
+    details: ["Genuine Hospitality", "Unforgettable Experience", "Authenticity First"],
   },
   {
-    id: "spices",
+    id: "promise",
     number: "03",
-    title: "Aged Basmati & Black Loomi",
-    tagline: "The Yemeni Spice Matrix",
+    title: "Dine-In & Online",
+    tagline: "Consistent Excellence",
     description:
-      "Extra-long aged basmati soaked in bone broth, cardamom pods, charred black sun-dried lime, cloves, and whole cinnamon bark.",
+      "Whether you’re dining in with friends and family or ordering online, we promise to deliver the same quality, flavor, and experience every time.",
     icon: Utensils,
-    details: ["Fluffy individual non-sticky grains", "Smoky citrus aroma from Loomi", "Subtle saffron aroma gradient"],
+    details: ["Dine-In with Family & Friends", "Fresh Online Delivery", "Same Quality Every Time"],
   },
   {
-    id: "communal",
+    id: "together",
     number: "04",
-    title: "The Majlis Communal Feast",
-    tagline: "Elegance of Shared Dining",
+    title: "Bringing People Together",
+    tagline: "Moments Big & Small",
     description:
-      "Served on handcrafted round silvered platters with house garlic toum, fire-roasted tomato dakous, and simmering rich maraq broth.",
+      "At Mandi Manzil, we believe great food brings people together – and we are proud to be a part of your moments, big and small.",
     icon: Users,
-    details: ["Traditionally enjoyed together", "Complimentary refills of fragrant rice", "Signature mint & onion garnish"],
+    details: ["Brings People Together", "Shared Moments", "Celebrations Big & Small"],
   },
 ];
 
@@ -129,15 +129,18 @@ export function GsapAnatomyShowcase() {
         <div className="site-container w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 relative z-10">
           <div>
             <span className="text-[11px] font-medium tracking-[0.25em] text-[#FCCB1C] uppercase">
-              The Alchemy of the Pit
+              Taste the Tradition
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-white mt-1">
-              Craft of the Authentic Platter
+              Welcome to Mandi Manzil
             </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 font-light mt-1">
+              Kerala’s Original Destination for Authentic Arabic Mandi Since 2016
+            </p>
           </div>
 
           <div className="flex items-center gap-3 text-xs text-white/50">
-            <span>Scroll to deconstruct</span>
+            <span>Scroll to explore</span>
             <span className="w-8 h-[1px] bg-white/20" />
             <span className="text-[#FCCB1C] font-mono">0{activeStep + 1} / 04</span>
           </div>
