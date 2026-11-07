@@ -90,7 +90,7 @@ export function BranchFinderClient() {
                       {branch.city || branch.district}
                     </span>
                     {isComingSoon ? (
-                      <span className="text-zinc-400 bg-white/[0.05] px-2.5 py-0.5 rounded-full italic">
+                      <span className="text-[#FCCB1C] bg-[#FCCB1C]/10 border border-[#FCCB1C]/30 px-2.5 py-0.5 rounded-full font-mono text-[10px] tracking-wider uppercase font-semibold">
                         Coming Soon
                       </span>
                     ) : (
@@ -119,8 +119,8 @@ export function BranchFinderClient() {
                 {/* Actions or Coming Soon Status */}
                 <div className="pt-3.5 border-t border-white/[0.06]">
                   {isComingSoon ? (
-                    <div className="py-2 px-3 bg-white/[0.02] border border-white/[0.05] rounded-xl text-center text-xs text-zinc-500 font-light italic">
-                      Opening soon to serve authentic Yemeni Mandi
+                    <div className="py-2.5 px-3 bg-[#FCCB1C]/[0.05] border border-[#FCCB1C]/20 rounded-xl text-center text-xs text-[#FCCB1C] font-mono tracking-wider uppercase font-semibold">
+                      Coming Soon &bull; Opening Soon
                     </div>
                   ) : (
                     <div className="flex items-center gap-2.5">
