@@ -182,33 +182,33 @@ export function InteractiveFeastSelector() {
           </p>
         </div>
 
-        {/* 8 Dishes Grid (2 Rows of 4 Cards Matching Image 2 & 3) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 mb-14">
+        {/* 8 Dishes Grid (2 Columns on Mobile, 4 Columns on Desktop) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-7 mb-14">
           {CHEF_PICKS.map((dish) => (
             <div
               key={dish.id}
-              className="group flex flex-col justify-start rounded-2xl bg-[#232225] border border-white/[0.06] p-5 transition-all duration-300 hover:border-[#FCCB1C]/40 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
+              className="group flex flex-col justify-start rounded-xl sm:rounded-2xl bg-[#232225] border border-white/[0.06] p-3 sm:p-5 transition-all duration-300 hover:border-[#FCCB1C]/40 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
             >
               {/* Authentic Top-Shot Platter with Rice */}
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-[#1B1A1C] flex items-center justify-center p-2.5">
+              <div className="relative w-full aspect-square rounded-lg sm:rounded-xl overflow-hidden mb-2.5 sm:mb-4 bg-[#1B1A1C] flex items-center justify-center p-1.5 sm:p-2.5">
                 <div className="relative w-full h-full drop-shadow-[0_15px_20px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-105">
                   <Image
                     src={dish.image}
                     alt={dish.name}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-contain filter contrast-[1.05]"
                   />
                 </div>
               </div>
 
               {/* Dish Name in Gold Serif */}
-              <h3 className="text-xl font-serif text-[#FCCB1C] mb-2 group-hover:text-[#FFD84D] transition-colors">
+              <h3 className="text-sm sm:text-lg lg:text-xl font-serif text-[#FCCB1C] mb-1 sm:mb-2 leading-snug group-hover:text-[#FFD84D] transition-colors">
                 {dish.name}
               </h3>
 
               {/* Minimal Description with Bold Keyword */}
-              <p className="text-xs text-zinc-300 font-light leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-zinc-300 font-light leading-relaxed line-clamp-3 sm:line-clamp-none">
                 <strong className="font-semibold text-white/95">{dish.boldPrefix}</strong>{" "}
                 {dish.text}
               </p>
