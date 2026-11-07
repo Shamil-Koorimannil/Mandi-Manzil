@@ -30,7 +30,6 @@ interface DishItem {
   id: string;
   name: string;
   category: string;
-  price: string;
   rating: number;
   reviews: string;
   prepTime: string;
@@ -45,12 +44,11 @@ const SIGNATURE_DISHES: DishItem[] = [
     id: "royal-mutton",
     name: "Royal Mutton Mandi",
     category: "Signature Pit Roast",
-    price: "₹790",
     rating: 4.9,
     reviews: "3.4k",
     prepTime: "Pit-Sealed 4 hrs",
     serves: "Serves 2-3",
-    image: "/images/dishes/mutton-mandi.jpg",
+    image: "/images/dishes/mutton half with rice.png",
     tag: "Chef's Crown",
     tagColor: "bg-amber-100 text-amber-900 border-amber-300",
   },
@@ -58,12 +56,11 @@ const SIGNATURE_DISHES: DishItem[] = [
     id: "smoked-madbi",
     name: "Smoked Chicken Madbi",
     category: "Charcoal Fusion",
-    price: "₹440",
     rating: 4.8,
     reviews: "2.8k",
     prepTime: "30 mins",
     serves: "Serves 1-2",
-    image: "/images/dishes/chicken-mandi.jpg",
+    image: "/images/dishes/normal mandi full with rice.png",
     tag: "Wood-Fired",
     tagColor: "bg-orange-100 text-orange-900 border-orange-300",
   },
@@ -71,7 +68,6 @@ const SIGNATURE_DISHES: DishItem[] = [
     id: "grand-feast",
     name: "Manzil Grand Majlis Feast",
     category: "Communal Platter",
-    price: "₹1,850",
     rating: 5.0,
     reviews: "5.1k",
     prepTime: "Fresh Batch Service",
@@ -473,11 +469,6 @@ export function AntiGravityHero() {
                         {SIGNATURE_DISHES[0].tag}
                       </span>
                     </div>
-
-                    {/* Price Tag Pill */}
-                    <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-slate-900/95 text-amber-300 font-mono text-xs font-bold shadow-md">
-                      {SIGNATURE_DISHES[0].price}
-                    </div>
                   </div>
 
                   {/* Card Content & Interactive Add Button */}
@@ -568,9 +559,6 @@ export function AntiGravityHero() {
                       {SIGNATURE_DISHES[1].tag}
                     </span>
                   </div>
-                  <div className="absolute bottom-2 right-2 px-2.5 py-0.5 rounded-full bg-slate-900/95 text-amber-300 font-mono text-[11px] font-bold shadow-md">
-                    {SIGNATURE_DISHES[1].price}
-                  </div>
                 </div>
 
                 <div className="mt-2.5 space-y-1.5">
@@ -634,9 +622,6 @@ export function AntiGravityHero() {
                     <span className="text-[9px] font-mono uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-sm">
                       {SIGNATURE_DISHES[2].tag}
                     </span>
-                  </div>
-                  <div className="absolute bottom-2 right-2 px-2.5 py-0.5 rounded-full bg-slate-900/95 text-amber-300 font-mono text-[11px] font-bold shadow-md">
-                    {SIGNATURE_DISHES[2].price}
                   </div>
                 </div>
 

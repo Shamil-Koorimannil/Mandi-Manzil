@@ -58,7 +58,7 @@ export const RESTAURANT_SCHEMA = {
   telephone: "+916235022055",
   email: "info@mandimanzil.com",
   servesCuisine: ["Arabian", "Middle Eastern", "Yemeni", "Mandi"],
-  priceRange: "₹₹",
+  priceRange: "$$",
   hasMenu: "https://mandimanzil.com/menu",
   image: "https://mandimanzil.com/images/hero-mandi.jpg",
   address: {

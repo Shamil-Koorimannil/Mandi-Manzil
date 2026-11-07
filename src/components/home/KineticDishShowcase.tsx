@@ -11,7 +11,6 @@ interface Dish {
   id: string;
   name: string;
   category: string;
-  price: string;
   tag: string;
   rating: string;
   image: string;
@@ -23,7 +22,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "royal-mutton",
     name: "Royal Mutton Mandi",
     category: "Signature Pit Roast",
-    price: "₹790",
     tag: "Chef's Crown",
     rating: "4.9",
     image: "/images/dishes/mutton half with rice.png",
@@ -33,7 +31,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "woodfired-chicken",
     name: "Classic Chicken Mandi",
     category: "Traditional Yemeni",
-    price: "₹420",
     tag: "Best Seller",
     rating: "4.8",
     image: "/images/dishes/normal mandi full with rice.png",
@@ -43,7 +40,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "alfaham-mandi",
     name: "Smoked Alfaham Mandi",
     category: "Charcoal Infused",
-    price: "₹450",
     tag: "Wood-Smoked",
     rating: "4.9",
     image: "/images/dishes/alfaham with rice.png",
@@ -53,7 +49,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "beef-mandi",
     name: "Tender Beef Mandi",
     category: "Slow Pit Braise",
-    price: "₹520",
     tag: "Special Reserve",
     rating: "4.8",
     image: "/images/dishes/Beef half with rice.png",
@@ -63,7 +58,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "peri-peri-mandi",
     name: "Peri-Peri Flame Mandi",
     category: "Spiced Fusion",
-    price: "₹460",
     tag: "Spicy Favorite",
     rating: "4.7",
     image: "/images/dishes/peri peri with rice.png",
@@ -73,7 +67,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "honey-chilly-mandi",
     name: "Honey Chilly Mandi",
     category: "Glazed Specialty",
-    price: "₹480",
     tag: "Unique Blend",
     rating: "4.8",
     image: "/images/dishes/Honey with rice.png",
@@ -83,7 +76,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "green-chilly-mandi",
     name: "Green Chilly Mandi",
     category: "Herbal Flame",
-    price: "₹470",
     tag: "Fiery Classic",
     rating: "4.8",
     image: "/images/dishes/Green chilie with rice.png",
@@ -93,7 +85,6 @@ const SHOWCASE_DISHES: Dish[] = [
     id: "spicy-mandi",
     name: "Special Spicy Mandi",
     category: "Ember Roasted",
-    price: "₹490",
     tag: "Hot Signature",
     rating: "4.9",
     image: "/images/dishes/Spicy half with rice.png",
@@ -213,12 +204,9 @@ export function KineticDishShowcase() {
 
               {/* Dish Meta */}
               <div>
-                <div className="flex items-baseline justify-between mb-2">
-                  <span className="text-[11px] font-mono text-white/50 uppercase tracking-wider">
+                <div className="mb-2">
+                  <span className="text-[11px] font-mono text-[#FCCB1C] uppercase tracking-wider">
                     {dish.category}
-                  </span>
-                  <span className="text-xl font-serif text-[#FCCB1C] font-normal">
-                    {dish.price}
                   </span>
                 </div>
 
