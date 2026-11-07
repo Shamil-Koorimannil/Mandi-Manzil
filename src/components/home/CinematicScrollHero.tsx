@@ -251,7 +251,7 @@ export function CinematicScrollHero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#160E18] text-white selection:bg-[#FCCB1C] selection:text-[#141314]"
+      className="relative w-full bg-[#2B2A2D] text-white selection:bg-[#FCCB1C] selection:text-[#141314]"
     >
       {/* Pinned Stage Container (Locks 100svh during scroll) */}
       <div
@@ -393,9 +393,9 @@ export function CinematicScrollHero() {
         {/* STORY OVERLAY & NARRATIVE LAYOUT                                          */}
         {/* ========================================================================= */}
 
-        {/* Soft bottom ground fade to blend smoothly into cooking story section */}
+        {/* Soft bottom ground fade to blend smoothly into feast selection section */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-t from-[#0A090A] via-[#0A090A]/70 to-transparent pointer-events-none z-25"
+          className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-t from-[#2B2A2D] via-[#2B2A2D]/70 to-transparent pointer-events-none z-25"
           aria-hidden="true"
         />
 
