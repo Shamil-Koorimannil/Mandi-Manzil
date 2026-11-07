@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CinematicScrollHero } from "@/components/home/CinematicScrollHero";
+import { CinematicMenuScene } from "@/components/home/CinematicMenuScene";
 import { InteractiveFeastSelector } from "@/components/home/InteractiveFeastSelector";
 import { SleekFinalInvitation } from "@/components/home/SleekFinalInvitation";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -18,10 +19,13 @@ export default function HomePage() {
       {/* 01. Cinematic Scroll Story Hero (Scene 01: The Arabian Journey) */}
       <CinematicScrollHero />
 
-      {/* 02. Unlimited Rice Portions & Chef's Special Mandi Picks (8-Dish Grid) */}
+      {/* 02. Cinematic Menu Presentation (Scene 02: The Mandi Menu) */}
+      <CinematicMenuScene />
+
+      {/* 03. Unlimited Rice Portions & Chef's Special Mandi Picks (8-Dish Grid) */}
       <InteractiveFeastSelector />
 
-      {/* 03. Minimal Final Communal Invitation */}
+      {/* 04. Minimal Final Communal Invitation */}
       <SleekFinalInvitation />
     </>
   );
