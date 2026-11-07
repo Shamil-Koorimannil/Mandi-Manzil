@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MinimalHero } from "@/components/home/MinimalHero";
+import { CinematicScrollHero } from "@/components/home/CinematicScrollHero";
 import { GsapAnatomyShowcase } from "@/components/home/GsapAnatomyShowcase";
 import { InteractiveFeastSelector } from "@/components/home/InteractiveFeastSelector";
 import { SleekFinalInvitation } from "@/components/home/SleekFinalInvitation";
@@ -16,8 +16,8 @@ export const metadata: Metadata = generatePageMetadata({
 export default function HomePage() {
   return (
     <>
-      {/* 01. Minimal Hero: Plain Grey Background, Slide-In Text & Dish, Dual Scroll Exit */}
-      <MinimalHero />
+      {/* 01. Cinematic Scroll Story Hero (Scene 01: The Arabian Journey) */}
+      <CinematicScrollHero />
 
       {/* 02. GSAP ScrollTrigger Pinned Anatomy Showcase (The Alchemy of the Pit) */}
       <GsapAnatomyShowcase />
