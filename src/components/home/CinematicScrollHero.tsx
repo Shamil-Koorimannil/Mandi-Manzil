@@ -11,13 +11,20 @@ export function CinematicScrollHero() {
   const containerRef = useRef<HTMLElement>(null);
   const pinTargetRef = useRef<HTMLDivElement>(null);
 
-  // Layer refs
+  // Layer refs (pinned/scroll containers)
   const townRef = useRef<HTMLDivElement>(null);
   const restaurantRef = useRef<HTMLDivElement>(null);
   const pathwayRef = useRef<HTMLDivElement>(null);
   const travellerRef = useRef<HTMLDivElement>(null);
   const gardenRef = useRef<HTMLDivElement>(null);
   const lanternGlowRef = useRef<HTMLDivElement>(null);
+
+  // Mouse parallax inner refs (independent from scroll triggers)
+  const townMouseRef = useRef<HTMLDivElement>(null);
+  const restaurantMouseRef = useRef<HTMLDivElement>(null);
+  const pathwayMouseRef = useRef<HTMLDivElement>(null);
+  const travellerMouseRef = useRef<HTMLDivElement>(null);
+  const gardenMouseRef = useRef<HTMLDivElement>(null);
 
   // Text overlay refs
   const initialTextRef = useRef<HTMLDivElement>(null);
@@ -187,6 +194,55 @@ export function CinematicScrollHero() {
         { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" },
         0.76
       );
+
+      // 4. Interactive Mouse Parallax (Silky multi-plane camera tilt displacement)
+      if (typeof window !== "undefined") {
+        const setTownX = gsap.quickTo(townMouseRef.current, "x", { duration: 1.1, ease: "power2.out" });
+        const setTownY = gsap.quickTo(townMouseRef.current, "y", { duration: 1.1, ease: "power2.out" });
+
+        const setRestaurantX = gsap.quickTo(restaurantMouseRef.current, "x", { duration: 0.9, ease: "power2.out" });
+        const setRestaurantY = gsap.quickTo(restaurantMouseRef.current, "y", { duration: 0.9, ease: "power2.out" });
+
+        const setPathwayX = gsap.quickTo(pathwayMouseRef.current, "x", { duration: 0.85, ease: "power2.out" });
+        const setPathwayY = gsap.quickTo(pathwayMouseRef.current, "y", { duration: 0.85, ease: "power2.out" });
+
+        const setTravellerX = gsap.quickTo(travellerMouseRef.current, "x", { duration: 0.75, ease: "power2.out" });
+        const setTravellerY = gsap.quickTo(travellerMouseRef.current, "y", { duration: 0.75, ease: "power2.out" });
+
+        const setGardenX = gsap.quickTo(gardenMouseRef.current, "x", { duration: 0.95, ease: "power2.out" });
+        const setGardenY = gsap.quickTo(gardenMouseRef.current, "y", { duration: 0.95, ease: "power2.out" });
+
+        const handleMouseMove = (e: MouseEvent) => {
+          const rect = containerRef.current?.getBoundingClientRect();
+          if (!rect || rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+
+          // Normalized coordinates from -1.0 to +1.0
+          const normX = (e.clientX / window.innerWidth - 0.5) * 2;
+          const normY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+          // Subtle natural physical displacement (in pixels) for each depth layer
+          setTownX(normX * -12);
+          setTownY(normY * -8);
+
+          setRestaurantX(normX * -18);
+          setRestaurantY(normY * -12);
+
+          setPathwayX(normX * -14);
+          setPathwayY(normY * -8);
+
+          setTravellerX(normX * -24);
+          setTravellerY(normY * -15);
+
+          setGardenX(normX * -34);
+          setGardenY(normY * -20);
+        };
+
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+        return () => {
+          window.removeEventListener("mousemove", handleMouseMove);
+        };
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -217,44 +273,54 @@ export function CinematicScrollHero() {
             ref={townRef}
             className="absolute inset-0 w-full h-full will-change-transform"
           >
-            <Image
-              src="/images/scene-01/arabian-town.webp"
-              alt="Arabian town at sunset with purple mountains"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[center_35%] sm:object-[center_30%]"
-            />
-            {/* Atmospheric warm sunlight gradient */}
             <div
-              className="absolute inset-0 opacity-20 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 75% 35%, rgba(252, 203, 28, 0.4) 0%, rgba(224, 122, 95, 0.2) 40%, transparent 70%)",
-              }}
-            />
+              ref={townMouseRef}
+              className="relative w-full h-full scale-[1.05] will-change-transform"
+            >
+              <Image
+                src="/images/scene-01/arabian-town.webp"
+                alt="Arabian town at sunset with purple mountains"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-[center_35%] sm:object-[center_30%]"
+              />
+              {/* Atmospheric warm sunlight gradient */}
+              <div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 75% 35%, rgba(252, 203, 28, 0.4) 0%, rgba(224, 122, 95, 0.2) 40%, transparent 70%)",
+                }}
+              />
+            </div>
           </div>
 
           {/* LAYER 2: The Sandstone Mandi Manzil Restaurant Building */}
           <div
             ref={restaurantRef}
-            className="absolute right-[-4%] sm:right-[3%] lg:right-[6%] xl:right-[8%] bottom-[15%] sm:bottom-[15%] lg:bottom-[16%] w-[78%] sm:w-[58%] lg:w-[46%] xl:w-[42%] max-w-[820px] aspect-[1536/1024] will-change-transform z-10 filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.55)]"
+            className="absolute right-[-4%] sm:right-[3%] lg:right-[6%] xl:right-[8%] bottom-[15%] sm:bottom-[15%] lg:bottom-[16%] w-[78%] sm:w-[58%] lg:w-[46%] xl:w-[42%] max-w-[820px] aspect-[1536/1024] z-10 filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.55)]"
           >
-            <Image
-              src="/images/scene-01/restaurant.webp"
-              alt="Mandi Manzil fortress restaurant with glowing lanterns and dining canopy"
-              fill
-              priority
-              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 45vw"
-              className="object-contain object-bottom-right"
-            />
-            {/* Warm Lantern Ambient Hearth Glow */}
             <div
-              className="absolute bottom-[20%] left-[45%] w-32 h-32 rounded-full pointer-events-none opacity-40 blur-2xl"
-              style={{
-                background: "radial-gradient(circle, #FCCB1C 0%, #FF8A00 50%, transparent 70%)",
-              }}
-            />
+              ref={restaurantMouseRef}
+              className="relative w-full h-full will-change-transform"
+            >
+              <Image
+                src="/images/scene-01/restaurant.webp"
+                alt="Mandi Manzil fortress restaurant with glowing lanterns and dining canopy"
+                fill
+                priority
+                sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 45vw"
+                className="object-contain object-bottom-right"
+              />
+              {/* Warm Lantern Ambient Hearth Glow */}
+              <div
+                className="absolute bottom-[20%] left-[45%] w-32 h-32 rounded-full pointer-events-none opacity-40 blur-2xl"
+                style={{
+                  background: "radial-gradient(circle, #FCCB1C 0%, #FF8A00 50%, transparent 70%)",
+                }}
+              />
+            </div>
           </div>
 
           {/* LAYER 3: Stone Pathway with Desert Rocks & Steps */}
@@ -262,29 +328,39 @@ export function CinematicScrollHero() {
             ref={pathwayRef}
             className="absolute left-[-5%] sm:left-0 bottom-0 w-[110%] sm:w-full h-[40%] sm:h-[45%] lg:h-[48%] will-change-transform z-12"
           >
-            <Image
-              src="/images/scene-01/stone-pathway.webp"
-              alt="Stone pathway with garden lanterns and steps leading to the restaurant"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-bottom"
-            />
+            <div
+              ref={pathwayMouseRef}
+              className="relative w-full h-full scale-[1.04] will-change-transform"
+            >
+              <Image
+                src="/images/scene-01/stone-pathway.webp"
+                alt="Stone pathway with garden lanterns and steps leading to the restaurant"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-bottom"
+              />
+            </div>
           </div>
 
           {/* LAYER 4: The Arabian Traveller Hero (Walking Towards the Restaurant) */}
           <div
             ref={travellerRef}
-            className="absolute left-[3%] sm:left-[6%] lg:left-[8%] bottom-[7%] sm:bottom-[9%] lg:bottom-[10%] w-[32%] sm:w-[24%] lg:w-[19%] xl:w-[17%] max-w-[280px] aspect-[1268/1241] will-change-transform z-15 origin-bottom-center filter drop-shadow-[15px_25px_22px_rgba(0,0,0,0.7)]"
+            className="absolute left-[3%] sm:left-[6%] lg:left-[8%] bottom-[7%] sm:bottom-[9%] lg:bottom-[10%] w-[32%] sm:w-[24%] lg:w-[19%] xl:w-[17%] max-w-[280px] aspect-[1268/1241] z-15 origin-bottom-center filter drop-shadow-[15px_25px_22px_rgba(0,0,0,0.7)]"
           >
-            <Image
-              src="/images/scene-01/arabian-traveller.webp"
-              alt="Arabian traveler journeying toward Mandi Manzil"
-              fill
-              priority
-              sizes="(max-width: 640px) 35vw, (max-width: 1024px) 25vw, 20vw"
-              className="object-contain"
-            />
+            <div
+              ref={travellerMouseRef}
+              className="relative w-full h-full will-change-transform"
+            >
+              <Image
+                src="/images/scene-01/arabian-traveller.webp"
+                alt="Arabian traveler journeying toward Mandi Manzil"
+                fill
+                priority
+                sizes="(max-width: 640px) 35vw, (max-width: 1024px) 25vw, 20vw"
+                className="object-contain"
+              />
+            </div>
           </div>
 
           {/* LAYER 5: Foreground Garden Frame (Palm Tree, Hanging Lantern, Foreground Rocks) */}
@@ -292,19 +368,24 @@ export function CinematicScrollHero() {
             ref={gardenRef}
             className="absolute inset-0 w-full h-full will-change-transform z-20 pointer-events-none"
           >
-            <Image
-              src="/images/scene-01/garden-frame.webp"
-              alt="Palm tree and tropical desert garden foreground frame"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-bottom"
-            />
-            {/* Hanging Lantern Warm Hearth Glow on Palm */}
             <div
-              ref={lanternGlowRef}
-              className="absolute top-[16%] sm:top-[17%] left-[6.5%] sm:left-[7.5%] w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FCCB1C]/40 blur-xl pointer-events-none"
-            />
+              ref={gardenMouseRef}
+              className="relative w-full h-full scale-[1.05] will-change-transform"
+            >
+              <Image
+                src="/images/scene-01/garden-frame.webp"
+                alt="Palm tree and tropical desert garden foreground frame"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-bottom"
+              />
+              {/* Hanging Lantern Warm Hearth Glow on Palm */}
+              <div
+                ref={lanternGlowRef}
+                className="absolute top-[16%] sm:top-[17%] left-[6.5%] sm:left-[7.5%] w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FCCB1C]/40 blur-xl pointer-events-none"
+              />
+            </div>
           </div>
         </div>
 
