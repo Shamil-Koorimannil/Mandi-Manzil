@@ -11,15 +11,18 @@ export function MobileCinematicKitchenScene() {
 
   // Layer containers for scroll animation
   const bgRef = useRef<HTMLDivElement>(null);
+  const chefRef = useRef<HTMLDivElement>(null);
   const potRef = useRef<HTMLDivElement>(null);
+  const fgRef = useRef<HTMLDivElement>(null);
   const steamRef = useRef<HTMLDivElement>(null);
   const spicesRef = useRef<HTMLDivElement>(null);
-  const fgRef = useRef<HTMLDivElement>(null);
 
   // Inner tilt refs for device orientation & touch parallax
   const tiltBgRef = useRef<HTMLDivElement>(null);
+  const tiltChefRef = useRef<HTMLDivElement>(null);
   const tiltPotRef = useRef<HTMLDivElement>(null);
   const tiltFgRef = useRef<HTMLDivElement>(null);
+  const tiltEffectsRef = useRef<HTMLDivElement>(null);
 
   // Atmospheric top badge & caption
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -49,30 +52,45 @@ export function MobileCinematicKitchenScene() {
 
       entranceTl.fromTo(
         bgRef.current,
-        { opacity: 0, scale: 1.05 },
+        { opacity: 0, scale: 1.03 },
         { opacity: 1, scale: 1.0, duration: 1.1, ease: "power2.out" }
       );
 
-      entranceTl.fromTo(
-        potRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
-        "-=0.8"
-      );
+      if (chefRef.current) {
+        entranceTl.fromTo(
+          chefRef.current,
+          { opacity: 0, y: 25 },
+          { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
+          "-=0.8"
+        );
+      }
 
-      entranceTl.fromTo(
-        [steamRef.current, spicesRef.current],
-        { opacity: 0 },
-        { opacity: 1, duration: 1.3, ease: "power2.out" },
-        "-=0.9"
-      );
+      if (potRef.current) {
+        entranceTl.fromTo(
+          potRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" },
+          "-=0.9"
+        );
+      }
 
-      entranceTl.fromTo(
-        fgRef.current,
-        { opacity: 0, y: 35 },
-        { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
-        "-=0.8"
-      );
+      if (fgRef.current) {
+        entranceTl.fromTo(
+          fgRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
+          "-=0.8"
+        );
+      }
+
+      if (steamRef.current && spicesRef.current) {
+        entranceTl.fromTo(
+          [steamRef.current, spicesRef.current],
+          { opacity: 0 },
+          { opacity: 1, duration: 1.2, ease: "power2.out" },
+          "-=0.8"
+        );
+      }
 
       if (badgeRef.current) {
         entranceTl.fromTo(
@@ -92,14 +110,15 @@ export function MobileCinematicKitchenScene() {
         );
       }
 
-      // 2. Ambient subtle floating effects (Requirement 6 & 7)
+      // 2. Ambient subtle floating effects
       if (!prefersReducedMotion) {
         if (steamRef.current) {
-          gsap.to(steamRef.current, {
-            y: "-=14",
-            opacity: 0.95,
-            scale: 1.02,
-            duration: 3.2,
+          gsap.to(steamRef.current.children, {
+            y: "-=12",
+            opacity: 0.9,
+            scaleY: 1.08,
+            stagger: 0.25,
+            duration: 3.0,
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
@@ -107,10 +126,11 @@ export function MobileCinematicKitchenScene() {
         }
 
         if (spicesRef.current) {
-          gsap.to(spicesRef.current, {
-            y: "+=12",
-            x: "+=5",
-            duration: 4.0,
+          gsap.to(spicesRef.current.children, {
+            y: "+=14",
+            x: "+=4",
+            stagger: 0.16,
+            duration: 2.6,
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
@@ -118,99 +138,178 @@ export function MobileCinematicKitchenScene() {
         }
       }
 
-      // 3. Mobile Pinned Scroll-Story Timeline
+      // 3. Compact Mobile Scroll Scrub Timeline
       if (!prefersReducedMotion) {
         const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: "+=1200",
+            end: "+=950",
             pin: pinTargetRef.current,
-            scrub: 1.1,
+            scrub: 0.9,
             anticipatePin: 1,
           },
         });
 
-        // Background glides subtly upward for depth
-        scrollTl.to(bgRef.current, { y: -20, scale: 1.02, ease: "none" }, 0);
+        scrollTl.to(
+          bgRef.current,
+          {
+            y: -12,
+            scale: 1.015,
+            ease: "none",
+          },
+          0
+        );
 
-        // Rice pot scales up slightly for central visual focus
-        scrollTl.to(potRef.current, { scale: 1.05, y: -12, ease: "none" }, 0);
-
-        // Steam lifts upward
-        if (steamRef.current) {
-          scrollTl.to(steamRef.current, { y: -30, opacity: 0.95, ease: "none" }, 0);
+        if (chefRef.current) {
+          scrollTl.to(
+            chefRef.current,
+            {
+              y: -10,
+              scale: 1.02,
+              ease: "none",
+            },
+            0
+          );
         }
 
-        // Foreground ingredients glide subtly
-        scrollTl.to(fgRef.current, { y: -8, ease: "none" }, 0);
+        if (potRef.current) {
+          scrollTl.to(
+            potRef.current,
+            {
+              y: -8,
+              scale: 1.015,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        if (steamRef.current) {
+          scrollTl.to(
+            steamRef.current,
+            {
+              y: -18,
+              opacity: 0.95,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        if (spicesRef.current) {
+          scrollTl.to(
+            spicesRef.current,
+            {
+              y: 16,
+              x: 5,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        if (fgRef.current) {
+          scrollTl.to(
+            fgRef.current,
+            {
+              y: -6,
+              scale: 1.01,
+              ease: "none",
+            },
+            0
+          );
+        }
+      }
+
+      // 4. Mobile Tilt & Touch Parallax
+      if (!prefersReducedMotion) {
+        const setBgX = gsap.quickTo(tiltBgRef.current, "x", { duration: 1.0, ease: "power2.out" });
+        const setBgY = gsap.quickTo(tiltBgRef.current, "y", { duration: 1.0, ease: "power2.out" });
+
+        const setChefX = gsap.quickTo(tiltChefRef.current, "x", { duration: 0.85, ease: "power2.out" });
+        const setChefY = gsap.quickTo(tiltChefRef.current, "y", { duration: 0.85, ease: "power2.out" });
+
+        const setPotX = gsap.quickTo(tiltPotRef.current, "x", { duration: 0.85, ease: "power2.out" });
+        const setPotY = gsap.quickTo(tiltPotRef.current, "y", { duration: 0.85, ease: "power2.out" });
+
+        const setEffX = gsap.quickTo(tiltEffectsRef.current, "x", { duration: 0.9, ease: "power2.out" });
+        const setEffY = gsap.quickTo(tiltEffectsRef.current, "y", { duration: 0.9, ease: "power2.out" });
+
+        const setFgX = gsap.quickTo(tiltFgRef.current, "x", { duration: 0.7, ease: "power2.out" });
+        const setFgY = gsap.quickTo(tiltFgRef.current, "y", { duration: 0.7, ease: "power2.out" });
+
+        const clamp = (val: number, min: number, max: number) =>
+          Math.min(Math.max(val, min), max);
+
+        // A. Gyroscope Orientation Listener
+        const handleOrientation = (e: DeviceOrientationEvent) => {
+          if (e.gamma === null || e.beta === null) return;
+          setHasTiltActive(true);
+
+          const gamma = clamp(e.gamma, -25, 25);
+          const beta = clamp(e.beta - 45, -25, 25);
+
+          const normX = gamma / 25;
+          const normY = beta / 25;
+
+          setBgX(normX * -3);
+          setBgY(normY * -2);
+
+          setChefX(normX * -8);
+          setChefY(normY * -5);
+
+          setPotX(normX * -6);
+          setPotY(normY * -4);
+
+          setEffX(normX * -9);
+          setEffY(normY * -6);
+
+          setFgX(normX * -12);
+          setFgY(normY * -7);
+        };
+
+        // B. Touch Parallax Fallback
+        const handleTouchMove = (e: TouchEvent) => {
+          if (hasTiltActive) return;
+          const touch = e.touches[0];
+          if (!touch) return;
+
+          const normX = (touch.clientX / window.innerWidth - 0.5) * 2;
+          const normY = (touch.clientY / window.innerHeight - 0.5) * 2;
+
+          setBgX(normX * -3);
+          setBgY(normY * -2);
+
+          setChefX(normX * -8);
+          setChefY(normY * -5);
+
+          setPotX(normX * -6);
+          setPotY(normY * -4);
+
+          setEffX(normX * -9);
+          setEffY(normY * -6);
+
+          setFgX(normX * -12);
+          setFgY(normY * -7);
+        };
+
+        if (window.DeviceOrientationEvent) {
+          window.addEventListener("deviceorientation", handleOrientation, { passive: true });
+        }
+        window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+        return () => {
+          if (window.DeviceOrientationEvent) {
+            window.removeEventListener("deviceorientation", handleOrientation);
+          }
+          window.removeEventListener("touchmove", handleTouchMove);
+        };
       }
     }, containerRef);
 
-    // 4. Device Orientation Tilt with Smooth Clamped Interpolation & Touch Fallback
-    if (!prefersReducedMotion && typeof window !== "undefined") {
-      const setBgX = gsap.quickTo(tiltBgRef.current, "x", { duration: 1.2, ease: "power2.out" });
-      const setBgY = gsap.quickTo(tiltBgRef.current, "y", { duration: 1.2, ease: "power2.out" });
-
-      const setPotX = gsap.quickTo(tiltPotRef.current, "x", { duration: 0.8, ease: "power2.out" });
-      const setPotY = gsap.quickTo(tiltPotRef.current, "y", { duration: 0.8, ease: "power2.out" });
-
-      const setFgX = gsap.quickTo(tiltFgRef.current, "x", { duration: 0.7, ease: "power2.out" });
-      const setFgY = gsap.quickTo(tiltFgRef.current, "y", { duration: 0.7, ease: "power2.out" });
-
-      let orientationFired = false;
-
-      const handleOrientation = (e: DeviceOrientationEvent) => {
-        if (e.gamma === null || e.beta === null) return;
-        if (!orientationFired) {
-          orientationFired = true;
-          setHasTiltActive(true);
-        }
-
-        const normX = Math.max(-1, Math.min(1, (e.gamma || 0) / 30));
-        const normY = Math.max(-1, Math.min(1, ((e.beta || 0) - 45) / 30));
-
-        setBgX(normX * -5);
-        setBgY(normY * -3);
-
-        setPotX(normX * -9);
-        setPotY(normY * -6);
-
-        setFgX(normX * -14);
-        setFgY(normY * -8);
-      };
-
-      const handleTouchMove = (e: TouchEvent) => {
-        if (orientationFired || e.touches.length === 0) return;
-        const touch = e.touches[0];
-        const normX = (touch.clientX / window.innerWidth - 0.5) * 2;
-        const normY = (touch.clientY / window.innerHeight - 0.5) * 2;
-
-        setBgX(normX * -4);
-        setBgY(normY * -2);
-
-        setPotX(normX * -8);
-        setPotY(normY * -5);
-
-        setFgX(normX * -12);
-        setFgY(normY * -7);
-      };
-
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", handleOrientation, { passive: true });
-      }
-      window.addEventListener("touchmove", handleTouchMove, { passive: true });
-
-      return () => {
-        if (window.DeviceOrientationEvent) {
-          window.removeEventListener("deviceorientation", handleOrientation);
-        }
-        window.removeEventListener("touchmove", handleTouchMove);
-      };
-    }
-
     return () => ctx.revert();
-  }, []);
+  }, [hasTiltActive]);
 
   return (
     <section
@@ -220,137 +319,79 @@ export function MobileCinematicKitchenScene() {
     >
       <div
         ref={pinTargetRef}
-        className="relative w-full h-[100svh] min-h-[560px] overflow-hidden flex items-center justify-center"
+        className="relative w-full h-[100svh] min-h-[580px] overflow-hidden flex items-center justify-center"
       >
         {/* Soft Vignette Gradients */}
         <div
-          className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#2B2A2D] via-[#2B2A2D]/60 to-transparent pointer-events-none z-30"
+          className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#2B2A2D] via-[#2B2A2D]/50 to-transparent pointer-events-none z-30"
           aria-hidden="true"
         />
         <div
-          className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2B2A2D] via-[#2B2A2D]/60 to-transparent pointer-events-none z-30"
+          className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#2B2A2D] via-[#2B2A2D]/50 to-transparent pointer-events-none z-30"
           aria-hidden="true"
         />
 
-        {/* Atmospheric Top Badge */}
+        {/* Ambient Top Tag */}
         <div
           ref={badgeRef}
-          className="absolute top-6 left-1/2 -translate-x-1/2 z-40 pointer-events-none text-center"
+          className="absolute top-5 left-1/2 -translate-x-1/2 z-40 pointer-events-none text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141314]/85 backdrop-blur-md border border-[#FCCB1C]/25 shadow-lg">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#141314]/85 backdrop-blur-md border border-[#FCCB1C]/25 shadow-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FCCB1C] animate-pulse" />
             <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#FCCB1C] font-semibold">
-              The Wood-Fired Kitchen
+              Scene 03: The Wood-Fired Kitchen
             </span>
           </div>
         </div>
 
-        {/* Story Caption Overlay at Bottom */}
+        {/* Atmospheric Mobile Narrative Badge */}
         <div
           ref={captionRef}
-          className="absolute bottom-8 left-4 right-4 z-40 pointer-events-none text-center"
+          className="absolute bottom-5 inset-x-4 z-40 pointer-events-none text-center"
         >
-          <div className="inline-block px-4 py-2.5 rounded-xl bg-[#141314]/80 backdrop-blur-md border border-white/10 max-w-xs mx-auto shadow-2xl">
-            <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#FCCB1C] mb-0.5 font-semibold">
-              Slow-Cooked Wood-Fired Mandi
-            </p>
-            <p className="text-[11px] font-serif text-white/90 leading-snug font-light">
-              Subterranean clay oven embers infusing aromatic basmati and slow-cooked spices.
+          <div className="inline-block px-3 py-1.5 rounded-lg bg-[#141314]/80 backdrop-blur-md border border-white/10 shadow-lg">
+            <p className="text-[11px] font-serif text-white/90 leading-snug">
+              Authentic slow-cooked mandi seasoned over glowing subterranean embers.
             </p>
           </div>
         </div>
 
         {/* ========================================================================= */}
-        {/* SCENE 03 MOBILE: CAREFULLY CROPPED RESPONSIVE COMPOSITION                 */}
-        {/* Calibrated (w-[160%] left-[-30%]) to center on the pot & hearth          */}
+        {/* SCENE 03 MOBILE: DELIBERATE RESPONSIVE COMPOSITION                        */}
         {/* ========================================================================= */}
-        <div className="relative w-[160%] h-full max-w-none left-[-30%] flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <div className="relative w-full h-full flex items-center justify-center pointer-events-none select-none overflow-hidden">
           
-          {/* LAYER 1: Full-Scene Kitchen Background */}
+          {/* LAYER 1: Full Kitchen Background */}
           <div
             ref={bgRef}
             className="absolute inset-0 w-full h-full will-change-transform z-0"
           >
             <div
               ref={tiltBgRef}
-              className="relative w-full h-full scale-[1.05] will-change-transform"
+              className="relative w-full h-full scale-[1.03] will-change-transform"
             >
               <Image
-                src="/images/scene-03/01-kitchen-scene-composite.webp"
+                src="/images/scene-03/scene-03-kitchen-desktop.webp"
                 alt="Wood-fired underground kitchen hearth with warm golden lighting"
                 fill
                 priority
                 sizes="100vw"
-                className="object-cover object-center"
+                className="object-cover object-[25%_center]"
               />
               <div
-                className="absolute inset-0 opacity-25 pointer-events-none"
+                className="absolute inset-0 opacity-20 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(circle at 50% 50%, rgba(252, 203, 28, 0.40) 0%, rgba(255, 138, 0, 0.15) 50%, transparent 75%)",
+                    "radial-gradient(circle at 40% 50%, rgba(252, 203, 28, 0.35) 0%, rgba(255, 138, 0, 0.12) 50%, transparent 75%)",
                 }}
               />
             </div>
           </div>
 
-          {/* LAYER 2: Isolated Rice Pot Layer (Requirement 4) */}
-          <div
-            ref={potRef}
-            className="absolute inset-0 w-full h-full will-change-transform z-10 flex items-center justify-center"
-          >
-            <div
-              ref={tiltPotRef}
-              className="relative w-full h-full scale-[1.03] will-change-transform flex items-center justify-center"
-            >
-              <Image
-                src="/images/scene-03/03-separate-mandi-rice-pot.webp"
-                alt="Isolated authentic Mandi rice pot degh"
-                fill
-                priority
-                sizes="100vw"
-                className="object-contain object-center filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.65)]"
-              />
-            </div>
-          </div>
-
-          {/* LAYER 3A: Rising Steam Overlay (Requirement 7) */}
-          <div
-            ref={steamRef}
-            className="absolute inset-0 w-full h-full will-change-transform z-15 pointer-events-none"
-          >
-            <div className="relative w-full h-full will-change-transform flex items-center justify-center mix-blend-screen opacity-85">
-              <Image
-                src="/images/scene-03/05-falling-spices-and-steam.webp"
-                alt="Rising steam wisps from mandi hearth"
-                fill
-                priority
-                sizes="100vw"
-                className="object-contain object-center scale-[1.02]"
-              />
-            </div>
-          </div>
-
-          {/* LAYER 3B: Falling Spices Overlay (Requirement 6) */}
-          <div
-            ref={spicesRef}
-            className="absolute inset-0 w-full h-full will-change-transform z-16 pointer-events-none"
-          >
-            <div className="relative w-full h-full will-change-transform flex items-center justify-center mix-blend-screen opacity-90">
-              <Image
-                src="/images/scene-03/05-falling-spices-and-steam.webp"
-                alt="Falling aromatic mandi spices drifting over the pot"
-                fill
-                priority
-                sizes="100vw"
-                className="object-contain object-center scale-[1.04]"
-              />
-            </div>
-          </div>
-
-          {/* LAYER 4: Foreground Ingredients & Table (Requirement 3) */}
+          {/* LAYER 2: Foreground Ingredients & Table Along Lower Screen */}
           <div
             ref={fgRef}
-            className="absolute inset-0 w-full h-full will-change-transform z-20 flex items-end justify-center"
+            className="absolute inset-x-0 bottom-0 w-full h-[28%] will-change-transform z-20 flex items-end justify-center pointer-events-none"
           >
             <div
               ref={tiltFgRef}
@@ -358,12 +399,83 @@ export function MobileCinematicKitchenScene() {
             >
               <Image
                 src="/images/scene-03/02-foreground-ingredients-and-table.webp"
-                alt="Foreground ingredients and feasting table"
+                alt="Foreground ingredients and feasting table spread"
                 fill
                 priority
                 sizes="100vw"
                 className="object-contain object-bottom filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
               />
+            </div>
+          </div>
+
+          {/* LAYER 3: Mandi Rice Pot on Counter */}
+          <div
+            ref={potRef}
+            className="absolute left-[33%] top-[49%] w-[54%] aspect-[2172/724] will-change-transform z-10 flex items-center justify-center pointer-events-none"
+          >
+            <div
+              ref={tiltPotRef}
+              className="relative w-full h-full will-change-transform"
+            >
+              <div
+                className="absolute -bottom-1.5 left-[8%] right-[8%] h-4 bg-[#0a0502]/80 rounded-full blur-[6px] pointer-events-none"
+                aria-hidden="true"
+              />
+              <Image
+                src="/images/scene-03/03-separate-mandi-rice-pot.webp"
+                alt="Isolated authentic Mandi rice pot degh"
+                fill
+                priority
+                sizes="60vw"
+                className="object-contain object-bottom filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)]"
+              />
+            </div>
+          </div>
+
+          {/* LAYER 4: Chef Sprinkling Spices (Visible Upper Body, Hand & Bowl) */}
+          <div
+            ref={chefRef}
+            className="absolute -left-[14%] top-[18%] w-[112%] h-[56%] will-change-transform z-15 pointer-events-none"
+          >
+            <div
+              ref={tiltChefRef}
+              className="relative w-full h-full will-change-transform"
+            >
+              <Image
+                src="/images/scene-03/scene-03-chef-sprinkling-spices.webp"
+                alt="Arabian chef sprinkling spices over the mandi rice pot"
+                fill
+                priority
+                sizes="110vw"
+                className="object-contain object-bottom filter drop-shadow-[0_14px_28px_rgba(0,0,0,0.55)]"
+              />
+            </div>
+          </div>
+
+          {/* LAYER 5: Falling Spices & Rising Steam */}
+          <div
+            ref={tiltEffectsRef}
+            className="absolute left-[54%] top-[39%] w-[26%] h-[22%] will-change-transform z-16 pointer-events-none"
+          >
+            {/* 5A: Rising Steam Wisps */}
+            <div
+              ref={steamRef}
+              className="absolute inset-0 flex items-end justify-center pointer-events-none"
+            >
+              <div className="w-6 h-16 bg-gradient-to-t from-white/35 via-white/15 to-transparent rounded-full blur-[8px] transform -translate-y-3" />
+              <div className="w-8 h-18 bg-gradient-to-t from-white/30 via-white/10 to-transparent rounded-full blur-[9px] transform -translate-y-5 -translate-x-2" />
+            </div>
+
+            {/* 5B: Falling Spices Particles */}
+            <div
+              ref={spicesRef}
+              className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-20 pointer-events-none"
+            >
+              <span className="absolute top-1 left-2 w-1.5 h-1.5 rounded-full bg-[#FCCB1C] opacity-90 blur-[0.5px]" />
+              <span className="absolute top-4 left-4 w-1 h-1 rounded-full bg-[#E08A24] opacity-80" />
+              <span className="absolute top-7 left-1.5 w-1.5 h-1 rounded-full bg-[#FCCB1C] opacity-85" />
+              <span className="absolute top-10 left-4.5 w-1 h-1.5 rounded-full bg-[#C83E1A] opacity-75" />
+              <span className="absolute top-13 left-3 w-1.5 h-1 rounded-full bg-[#E08A24] opacity-80" />
             </div>
           </div>
 
